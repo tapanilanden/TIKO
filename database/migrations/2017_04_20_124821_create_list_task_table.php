@@ -15,7 +15,7 @@ class CreateListTaskTable extends Migration
     {
          Schema::create('list_task', function (Blueprint $table) {
             $table->integer('task_id')->unsigned()->index();
-            $table->int('list_id')->unsigned()->index();
+            $table->integer('list_id')->unsigned()->index();
             
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
             $table->foreign('list_id')->references('id')->on('lists')->onDelete('cascade');
