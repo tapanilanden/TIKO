@@ -31,5 +31,13 @@ class User extends Authenticatable
     {
       return $this->hasMany(Answers::class);
     }
+    
+    public function tasks() {
+        return $this->hasMany('App\Task');
+    }
+    
+    public function lists() {
+        return $this->hasMany('App\List');
+    }
 
 }
