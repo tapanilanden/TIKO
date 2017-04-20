@@ -16,7 +16,7 @@ class CreateListsTable extends Migration
         Schema::create('lists', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->text('kuvaus')->nullable();
+            $table->text('body')->nullable();
             $table->integer('user_id');
             
             $table->foreign('user_id')->references('id')->on('users');
