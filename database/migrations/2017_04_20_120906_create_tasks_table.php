@@ -19,7 +19,7 @@ class CreateTasksTable extends Migration
             $table->text('description');
             $table->integer('type'); //----------Tyyppi int 8 pituisen varcharin sijaan
             $table->text('model_query');
-            $table->integer('user_id'); //-------Korvaa id:n
+            $table->integer('user_id')->unsigned(); //-------Korvaa id:n
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
