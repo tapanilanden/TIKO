@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 class CreateListTaskTable extends Migration
 {
     /**
@@ -24,7 +22,6 @@ class CreateListTaskTable extends Migration
                    
          });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -35,3 +32,6 @@ class CreateListTaskTable extends Migration
         Schema::dropIfExists('list_task');
     }
 }
+
+
+
