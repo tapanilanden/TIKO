@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Set;
+
 class SetController extends Controller
 {
 
@@ -14,7 +16,9 @@ class SetController extends Controller
      */
     public function index()
     {
-        //
+        $sets = Set::all();
+        
+        return view('sets.index')->withSets($sets);
     }
 
     /**
@@ -88,5 +92,5 @@ class SetController extends Controller
     {
         //
     }
-    
+
 }

@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\ModelAnswer;
+use App\Http\Requests;
+use App\Answer;
 
-class ModelAnswerController extends Controller
+class AnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,8 @@ class ModelAnswerController extends Controller
      */
     public function index()
     {
-        $modelAnswers = ModelAnswer::all();
-        
-        return view('model_answers.index')->withModelanswers($modelAnswers);
+        $answers = Answer::all();
+        return view('answers.index')->withAnswers($answers);
     }
 
     /**
@@ -27,7 +27,7 @@ class ModelAnswerController extends Controller
      */
     public function create()
     {
-        //
+        return view('answers.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class ModelAnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\List;
+
 class ListController extends Controller
 {
     /**
@@ -13,7 +15,9 @@ class ListController extends Controller
      */
     public function index()
     {
-        //
+        $lists = List::all();
+        
+        return view('lists.index')->withLists($lists);
     }
 
     /**
