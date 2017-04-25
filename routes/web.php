@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::resource('tasks', 'TaskController');
+
 
 // Miklos - kommentti
 // Tapani - kommentti
