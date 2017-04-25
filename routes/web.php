@@ -11,17 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['web']], function () {
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Auth::routes();
+
+    Route::get('/home', 'HomeController@index');
+
+    Route::resource('answers', 'AnswerController');
+    Route::resource('lists','ListController');
+    Route::resource('model_answers', 'ModelAnswerController');
+    Route::resource('sets', 'SetController');
+    Route::resource('tasks', 'TaskController');
+    Route::resource('users','UserController');
+
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-
-Route::resource('tasks', 'TaskController');
-
-
-// Miklos - kommentti
-// Tapani - kommentti
 
