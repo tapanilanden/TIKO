@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests;
+use App\Answer;
+
 class AnswerController extends Controller
 {
     /**
@@ -13,7 +16,8 @@ class AnswerController extends Controller
      */
     public function index()
     {
-        //
+        $answers = Answer::all();
+        return view('answer.index')->withAnswers($answers);
     }
 
     /**
