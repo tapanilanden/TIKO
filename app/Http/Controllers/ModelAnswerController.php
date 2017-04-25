@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\ModelAnswer;
+
 class ModelAnswerController extends Controller
 {
     /**
@@ -13,7 +15,9 @@ class ModelAnswerController extends Controller
      */
     public function index()
     {
-        //
+        $modelAnswers = ModelAnswer::all();
+        
+        return view('model_answers.index')->withModelanswers($modelAnswers);
     }
 
     /**
