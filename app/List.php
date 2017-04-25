@@ -13,4 +13,8 @@ class List extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+    public function sets() {
+    	return $this->belongsToMany('App\Set');
+    }
 }
