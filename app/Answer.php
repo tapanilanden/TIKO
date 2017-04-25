@@ -8,12 +8,12 @@ class Answer extends Model
 {
     public function sets()
     {
-        return $this->belongsTo(Set::class);
+        return $this->belongsTo('App\Set');
     }
 
     public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\User');
     }
 
 

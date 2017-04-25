@@ -40,4 +40,8 @@ class User extends Authenticatable
         return $this->hasMany('App\List');
     }
 
+    public function sets() {
+        return $this->hasMany('App\Set');
+    }
+
 }
