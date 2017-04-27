@@ -29,6 +29,7 @@
       <ul class="nav navbar-nav navbar-right">
         @if (! Auth::check())
           <li><a class="nav-link ml-auto" href={{ url('/login') }}>Kirjaudu sisään</a></li>
+          <li><a class="nav-link ml-auto" href={{ url('/register') }}>Rekisteröidy</a></li>
           @endif
 
           @if (Auth::check())
@@ -46,12 +47,6 @@
   </div>
 </nav>
 
-
-<div class="jumbotron">
-  <h1>Jumbotron</h1>
-  <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <p><a class="btn btn-primary btn-lg">Learn more</a></p>
-</div>
 
 
 
