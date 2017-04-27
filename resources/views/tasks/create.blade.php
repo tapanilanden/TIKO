@@ -4,7 +4,7 @@
 
   <div class="col-sm-8">
 
-    <h1>Luo uusi tehtävä/h1>
+    <h1>Luo uusi tehtävä</h1>
 
     <hr />
 
