@@ -79,7 +79,7 @@
                             <label for="major" class="col-md-4 control-label">Pääaine</label>
 
                             <div class="col-md-6">
-                                <input type="radio" name="major" value="1">Tietojenkäsittelytiede<br>
+                                <input type="radio" name="major" value="1" checked>Tietojenkäsittelytiede<br>
                                 <input type="radio" name="major" value="2">Matematiikka ja tilastotiede<br>
                                 <input type="radio" name="major" value="3">Informaatiotutkimus ja interaktiivinen media<br>
                                 <input type="radio" name="major" value="4">Jokin muu
