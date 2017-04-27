@@ -18,8 +18,8 @@ class Set extends Model
     	return $this->belongsTo('App\User');
     }
 
-    public function list() {
-    	return $this->hasOne('App\List');
+    public function tasklist() {
+    	return $this->hasOne('App\Tasklist');
     }
 
 

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\List;
+use App\Tasklist;
 
-class ListController extends Controller
+class TasklistController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class ListController extends Controller
      */
     public function index()
     {
-        $lists = List::all();
+        $tasklists = Tasklist::all();
         
-        return view('lists.index')->withLists($lists);
+        return view('tasklists.index')->withTasklists($tasklists);
     }
 
     /**
