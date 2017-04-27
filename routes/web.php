@@ -15,7 +15,7 @@
 	Route::group(['middleware' => ['web']], function () {
 
 	    Route::get('/', function () {
-	    return view('layouts.master');
+	    return view('home');
 
 	    });
 

@@ -8,7 +8,7 @@
     <h4>Mistä on kyse?</h4>
     <p><b>WO harkkatyö</b></p>
 
-    <p><b><em> Lánden, Strömberg & Yezhou    </em></b></p>
+    <p><b><em>Lánden, Strömberg & Yezhou</em></b></p>
 
   </div>
 
