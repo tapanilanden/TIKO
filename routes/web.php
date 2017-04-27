@@ -19,18 +19,12 @@
 
 	    });
 
-
-	});
-
-
-
-
     Auth::routes();
 
     Route::get('/home', 'HomeController@index');
 
     Route::resource('answers', 'AnswerController');
-    Route::resource('tasklists','TaskListController');
+    Route::resource('tasklists','TasklistController');
     Route::resource('model_answers', 'ModelAnswerController');
     Route::resource('sets', 'SetController');
     Route::resource('tasks', 'TaskController');
