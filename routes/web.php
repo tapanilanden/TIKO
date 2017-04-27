@@ -16,7 +16,13 @@
 
 	    Route::get('/', function () {
 	    return view('layouts.master');
+
 	    });
+
+
+	});
+
+
 
 
     Auth::routes();
