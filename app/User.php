@@ -36,8 +36,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Task');
     }
     
-    public function lists() {
-        return $this->hasMany('App\List');
+    public function tasklists() {
+        return $this->hasMany('App\Tasklist');
     }
 
     public function sets() {

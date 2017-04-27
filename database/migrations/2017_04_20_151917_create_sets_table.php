@@ -17,8 +17,8 @@ class CreateSetsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('list_id')->unsigned();
-            $table->foreign('list_id')->references('id')->on('lists');
+            $table->integer('tasklist_id')->unsigned();
+            $table->foreign('tasklist_id')->references('id')->on('tasklists');
             $table->timestamps();
         });
 

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class List extends Model
+class Tasklist extends Model
 {
     public function tasks() {
         return $this->belongsToMany('App\Task');

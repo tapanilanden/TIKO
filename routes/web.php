@@ -17,7 +17,11 @@
 	    Route::get('/', function () {
 	    return view('layouts.master');
 
+	    });
+
+
 	});
+
 
 
 
@@ -26,7 +30,7 @@
     Route::get('/home', 'HomeController@index');
 
     Route::resource('answers', 'AnswerController');
-    Route::resource('lists','ListController');
+    Route::resource('tasklists','TaskListController');
     Route::resource('model_answers', 'ModelAnswerController');
     Route::resource('sets', 'SetController');
     Route::resource('tasks', 'TaskController');

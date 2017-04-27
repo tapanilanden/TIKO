@@ -11,14 +11,14 @@ class CreateListTaskTable extends Migration
      */
     public function up()
     {
-         Schema::create('list_task', function (Blueprint $table) {
+         Schema::create('task_tasklist', function (Blueprint $table) {
             $table->integer('task_id')->unsigned()->index();
-            $table->integer('list_id')->unsigned()->index();
+            $table->integer('tasklist_id')->unsigned()->index();
             
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
-            $table->foreign('list_id')->references('id')->on('lists')->onDelete('cascade');
+            $table->foreign('tasklist_id')->references('id')->on('tasklists')->onDelete('cascade');
             
-            $table->unique(['task_id', 'list_id']);
+            $table->unique(['task_id', 'tasklist_id']);
                    
          });
     }
@@ -29,7 +29,7 @@ class CreateListTaskTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_task');
+        Schema::dropIfExists('task_tasklist');
     }
 }
 

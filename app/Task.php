@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    public function lists() {
-        return $this->belongsToMany('App\List');
+    public function tasklists() {
+        return $this->belongsToMany('App\Tasklist');
     }
     
     public function user() {

@@ -8,6 +8,7 @@ use App\Set;
 
 class SetController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +39,13 @@ class SetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+    	$set = new Set();
+    	$set->user_id = Auth::user()->id;
+    	$set->list_id = Input::get('set');
+    	$set->save();
+    	
+        Set::createData();
     }
 
     /**
@@ -85,6 +92,5 @@ class SetController extends Controller
     {
         //
     }
-
 
 }
