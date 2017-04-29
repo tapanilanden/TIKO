@@ -20,23 +20,44 @@
   <body>
 
 
-      <div class="container">
-
       
 
-          <div class="row">
 
-          @include ('layouts.nav')
-
-          @yield ('content')
-
-          @include ('layouts.footer')
+    
 
 
+    <div class="container">
+
+        <div class="row">
+
+
+
+        @include ('layouts.nav')
+
+        @if ($flash = session('success'))
+          <div id="flash-message" class="alert alert-success" role="alert">
+              {{ $flash }}
           </div>
+          @elseif ($flash = session('error'))
+              <div id="flash-message" class="alert alert-danger" role="alert">
+                  {{ $flash }}
+              </div>
+        @endif
+
+        @yield ('content')
 
         
-        </div>
+
+
+
+      </div>
+
+      @include ('layouts.footer')
+    </div>
+
+
+
+    
 
 
 
