@@ -1,10 +1,10 @@
 
 <div class="row well-sm"">
-    <div class="col-md-6 col-md-offset-2">
+    <div class="col-md-8">
         <h6>
           <a href={{ url('/tasks/'.$task->id) }} >
             
-            {{ $task->user->name }} : {{ $task->description }}
+            <strong>{{ $task->user->name }}</strong> : {{ substr($task->description, 0, 100) }}{{ strlen($task->description) > 100 ? "...": ""}}
             
           </a>
         </h6>
