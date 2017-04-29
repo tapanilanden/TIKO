@@ -24,7 +24,7 @@
       @foreach($tasks as $task)
         <div>
           {{ $task->description }}
-          <input type='checkbox' name={{ $task->id}}>
+          <input type='checkbox' name={{$task->id}} id={{$task->id}}>
         </div>  
         <hr>
     
