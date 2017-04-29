@@ -79,7 +79,9 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Task::find($id);
+        
+        return view('tasks.edit')->withTask($task);
     }
 
     /**
@@ -91,7 +93,26 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::find($id);
+        
+        $this->validate($request, array(
+            'description' => 'required|min:10',
+            'type' => 'required',
+            'model_query' => 'required|min:10|max:200'
+        ));
+        
+        $task = Task::find($id);
+        $task->description = $request->input('description');
+        $task->model_query = $request->input('model_query');
+        $task->type = $request->input('type');
+        $task->user_id = Auth::user()->id;
+        
+        $task->save();
+        
+        Session::flash('success', 'Tehtävä tallennettiin onnistuneesti!');
+        
+        return redirect()->route('tasks.index');
+        
     }
 
     /**
@@ -102,6 +123,11 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::find($id);
+        $task->delete();
+        
+        Session::flash('success', 'Tehtävä poistettiin onnistuneesti!');
+        
+        return redirect()->route('tasks.index');
     }
 }
