@@ -3,19 +3,27 @@
     @section('content')
 
 
+    <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-4">
+                    <form method="get" action="/tasks/create">
+                        <button class="btn btn-success btn-block" type="submit">Luo uusi tehtävä</button>
+                    </form>
+                </div>
+            </div>
 
-    <form method="get" action="/tasks/create">
-    	<button class="btn btn-success" type="submit">Luo uusi tehtävä</button>
-    </form>
-
-    <hr />
+            <hr />
 
 
-    @foreach($tasks as $task)
+            @foreach($tasks as $task)
+                
+                    @include('tasks.tasks')
+                <hr />
 
-        @include('tasks.tasks')
-        <hr />
-    
-    @endforeach
+            @endforeach
+            
+        </div>
 
 @stop
