@@ -28,7 +28,7 @@ class TasklistController extends Controller
      */
     public function create()
     {
-        $tasks = Task::all();
+        $task = Task::all();
         return view('tasklists.create')->withTasks($tasks);
     }
 
@@ -44,10 +44,10 @@ class TasklistController extends Controller
             'body' => 'required|min:10'
         ));
         
-        $task = new Task;
-        $task->user_id = Auth::user()->id;
-        $task->body = $request->body;
-        $task->save();
+        $tasklist = new Tasklist;
+        $tasklist->user_id = Auth::user()->id;
+        $tasklist->body = $request->body;
+        $tasklist->save();
         
         
         return redirect()->action('TaskController@index')->with('success', 'Tehtävälista tallennettu!');
