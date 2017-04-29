@@ -93,6 +93,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $task = Task::find($id);
         
         $this->validate($request, array(
@@ -111,7 +112,7 @@ class TaskController extends Controller
         
         Session::flash('success', 'Tehtävä tallennettiin onnistuneesti!');
         
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('status', 'Muokkaus onnistui!');
         
     }
 
