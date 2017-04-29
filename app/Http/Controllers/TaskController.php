@@ -43,7 +43,7 @@ class TaskController extends Controller
         
         $this->validate($request, array(
             'description' => 'required|min:10',
-            'type' => 'required|min:4|max:10',
+            'type' => 'required',
             'model_query' => 'required|min:10|max:200'
         ));
         
