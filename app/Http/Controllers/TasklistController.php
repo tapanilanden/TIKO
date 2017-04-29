@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Tasklist;
+use App\Task;
 
 class TasklistController extends Controller
 {
@@ -27,7 +28,8 @@ class TasklistController extends Controller
      */
     public function create()
     {
-        //
+        $task = Task::all();
+        return view('tasklists.create')->withTasks($tasks);
     }
 
     /**
@@ -38,7 +40,17 @@ class TasklistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, array(
+            'body' => 'required|min:10'
+        ));
+        
+        $tasklist = new Tasklist;
+        $tasklist->user_id = Auth::user()->id;
+        $tasklist->body = $request->body;
+        $tasklist->save();
+        
+        
+        return redirect()->action('TaskController@index')->with('success', 'Tehtävälista tallennettu!');
     }
 
     /**
