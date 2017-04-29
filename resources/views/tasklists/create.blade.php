@@ -23,7 +23,7 @@
 
       @foreach($tasks as $task)
         <div>
-          {{ $task->description }}
+          {{ substr($task->description, 0, 100) }}{{ strlen($task->description) > 100 ? "...": "" }}
           <input type='checkbox' name={{$task->id}} id={{$task->id}}>
         </div>  
         <hr>
