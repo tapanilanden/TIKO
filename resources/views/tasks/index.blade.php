@@ -12,9 +12,13 @@
     	<button class="btn btn-success" type="submit">Luo uusi tehtävä</button>
     </form>
 
+    <hr />
+
 
     @foreach($tasks as $task)
+    
         @include('tasks.tasks')
+        <hr />
     
     @endforeach
 

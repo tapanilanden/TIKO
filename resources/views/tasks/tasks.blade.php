@@ -1,9 +1,9 @@
 <div>
-  <li>
 
+<h6>
   <a href={{ url('/tasks/'.$task->id) }}>
-    {{ $task->description }}
+    {{ $task->user->name }} : {{ $task->description }}
   </a>
+  </h6>
 
-  </li>
 </div>
