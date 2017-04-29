@@ -2,11 +2,19 @@
 <div class="row well-sm"">
     <div class="col-md-8">
         <h6>
+          <a href={{ url('/users/'.$task->user_id) }} >
+            
+            <strong>{{ $task->user->name }}</strong> 
+            
+          </a> |
+
           <a href={{ url('/tasks/'.$task->id) }} >
             
-            <strong>{{ $task->user->name }}</strong> : {{ substr($task->description, 0, 100) }}{{ strlen($task->description) > 100 ? "...": ""}}
+            {{ substr($task->description, 0, 100) }}{{ strlen($task->description) > 100 ? "...": ""}}
             
           </a>
+
+
         </h6>
     </div>
     
