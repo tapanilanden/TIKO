@@ -56,7 +56,7 @@ class TaskController extends Controller
         
         Session::flash('success', 'Tehtävä tallennettiin onnistuneesti!');
         
-        return redirect()->route('tasks.index');
+        return redirect()->action('TaskController@index')->with('status', 'Tehtävä tallennettu!');
     }
 
     /**
