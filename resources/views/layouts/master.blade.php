@@ -19,23 +19,26 @@
 
   <body>
 
-    
+
+      <div class="container">
+
+      
+
+          <div class="row">
+
+          @include ('layouts.nav')
+
+          @yield ('content')
+
+          @include ('layouts.footer')
 
 
+          </div>
 
-    <div class="container">
+        
+        </div>
 
-    @include ('layouts.nav')
 
-        <div class="row">
-
-        @yield ('content')
-
-      </div>
-
-      @include ('layouts.footer')
-
-    </div>
 
 
 
