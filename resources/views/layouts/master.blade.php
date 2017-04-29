@@ -34,7 +34,7 @@
 
         @include ('layouts.nav')
 
-        @if ($flash = session('message'))
+        @if ($flash = session('success'))
           <div id="flash-message" class="alert alert-success" role="alert">
               {{ $flash }}
           </div>
@@ -46,11 +46,13 @@
 
         @yield ('content')
 
-        @include ('layouts.footer')
+        
 
 
 
       </div>
+
+      @include ('layouts.footer')
     </div>
 
 

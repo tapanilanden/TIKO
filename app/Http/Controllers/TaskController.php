@@ -54,9 +54,8 @@ class TaskController extends Controller
         $task->model_query = $request->model_query;
         $task->save();
         
-        Session::flash('success', 'Tehtävä tallennettiin onnistuneesti!');
         
-        return redirect()->action('TaskController@index')->with('status', 'Tehtävä tallennettu!');
+        return redirect()->action('TaskController@index')->with('success', 'Tehtävä tallennettu!');
     }
 
     /**
@@ -110,9 +109,8 @@ class TaskController extends Controller
         
         $task->save();
         
-        Session::flash('success', 'Tehtävä tallennettiin onnistuneesti!');
         
-        return redirect()->route('tasks.index')->with('status', 'Muokkaus onnistui!');
+        return redirect()->route('tasks.index')->with('success', 'Muokkaus onnistui!');
         
     }
 
