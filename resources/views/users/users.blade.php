@@ -1,9 +1,9 @@
 <div>
-  <li>
+  <h4>
 
   <a href={{ url('/users/'.$user->id) }}>
     {{ $user->name }}
   </a>
 
-  </li>
+  </h4>
 </div><!-- /users -->
