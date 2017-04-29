@@ -6,7 +6,7 @@
 
     <h1>Luo uusi tehtävälista</h1>
 
-    <hr />
+    <hr>
 
     <form method="POST" action={{ url('/tasklists') }}>
 
@@ -22,15 +22,17 @@
 
 
       @foreach($tasks as $task)
-
-        {{ $task->description }}
-        <hr />
+        <div>
+          {{ $task->description }}
+          <input type='checkbox' name={{ $task->id}}>
+        </div>  
+        <hr>
     
-    @endforeach
+      @endforeach
 
 
       <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-block">Tallenna tehtävälista</button>
+        <button type="submit" class="btn btn-primary btn-block">Tallenna tehtävälista</button>
       </div>
     </form>
 
