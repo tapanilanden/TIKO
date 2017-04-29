@@ -39,7 +39,7 @@
       <h5>Käyttäjän luomat tehtävät:</h5>
       @foreach ($user->tasks as $task)
       <a href={{ url('/tasks/'.$task->id) }}>
-        {{ $task->description }}
+        {{ substr($task->description, 0, 100) }}{{ strlen($task->description) > 100 ? "...": "" }}
       </a>
         <hr />
       @endforeach
