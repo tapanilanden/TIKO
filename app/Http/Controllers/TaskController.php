@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Task;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class TaskController extends Controller
 {
@@ -39,8 +40,23 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $this->validate($request, array(
+            'description' => 'required|min:10',
+            'type' => 'required',
+            'model_query' => 'required|min:10|max:200'
+        ));
+        
         $task = new Task;
-        return view('/');
+        $task->user_id = Auth::user()->id;
+        $task->description = $request->description;
+        $task->type = $request->type;
+        $task->model_query = $request->model_query;
+        $task->save();
+        
+        Session::flash('success', 'Tehtävä tallennettiin onnistuneesti!');
+        
+        return redirect()->route('tasks.index');
     }
 
     /**
