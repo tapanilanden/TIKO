@@ -14,8 +14,7 @@
 
 
     @foreach($tasks as $task)
-        <h3>{{ $task->id }} </h3>
-        <p>{{ $task->description }}</p>
+        @include('tasks.tasks')
     
     @endforeach
 
