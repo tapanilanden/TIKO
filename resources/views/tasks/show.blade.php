@@ -15,7 +15,7 @@
                 <form action="{{ route('tasks.edit', $task->id) }}">
                     <button type="submit" class="btn btn-primary btn-block">MUOKKAA</button>
                 </form>
-
+                <br>
                 <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="DELETE">
