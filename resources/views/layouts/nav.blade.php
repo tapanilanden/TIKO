@@ -12,8 +12,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
+
 
          @if (Auth::check() && Auth::user()->role < 2)
           <li><a class="nav-link" href={{ url('/users') }}>Käyttäjien hallinta</a></li>
@@ -21,6 +20,10 @@
 
         @if (Auth::check() && Auth::user()->role < 3)
           <li><a class="nav-link" href={{ url('/tasks') }}>Tehtävien hallinta</a></li>
+        @endif
+
+        @if (Auth::check() && Auth::user()->role < 3)
+          <li><a class="nav-link" href={{ url('/tasklists') }}>Tehtävälistat</a></li>
         @endif
 
 
