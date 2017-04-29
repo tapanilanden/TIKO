@@ -53,9 +53,9 @@ class TaskController extends Controller
         $task->type = $request->type;
         $task->model_query = $request->model_query;
         $task->save();
-        
-        
+           
         return redirect()->action('TaskController@index')->with('success', 'Tehtävä tallennettu!');
+
     }
 
     /**
@@ -109,8 +109,9 @@ class TaskController extends Controller
         
         $task->save();
         
-        
+
         return redirect()->route('tasks.index')->with('success', 'Muokkaus onnistui!');
+
         
     }
 
@@ -125,8 +126,6 @@ class TaskController extends Controller
         $task = Task::find($id);
         $task->delete();
         
-        Session::flash('success', 'Tehtävä poistettiin onnistuneesti!');
-        
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('success', 'Tehtävä poistettiin onnistuneesti!');
     }
 }
