@@ -34,7 +34,8 @@ class TasklistController extends Controller
     public function create()
     {
         $tasks = Task::all();
-        return view('tasklists.create')->withTasks($tasks);
+        $tasklists = Tasklist::all();
+        return view('tasklists.create')->withTasks($tasks)->withTasklists($tasklists);
     }
 
     /**
@@ -75,7 +76,8 @@ class TasklistController extends Controller
      */
     public function show($id)
     {
-        //
+        $tasklist = Tasklist::find($id);
+        return view('tasklists.show')->withTasklist($tasklist);
     }
 
     /**
@@ -86,7 +88,9 @@ class TasklistController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tasklist = Tasklist::find($id); 
+        $tasks = Task::all();
+        return view('tasklists.edit')->withTasklist($tasklist)->withTasks($tasks);
     }
 
     /**
