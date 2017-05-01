@@ -93,8 +93,6 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         
-        $task = Task::find($id);
-        
         $this->validate($request, array(
             'description' => 'required|min:10',
             'type' => 'required',
@@ -105,7 +103,6 @@ class TaskController extends Controller
         $task->description = $request->input('description');
         $task->model_query = $request->input('model_query');
         $task->type = $request->input('type');
-        $task->user_id = Auth::user()->id;
         
         $task->save();
         

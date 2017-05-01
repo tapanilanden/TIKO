@@ -36,15 +36,23 @@
       </div>
       
       <div class="col-md-6">
-        <label>Kaikki tehtävät:</label>
+        <label>Muut tehtävät:</label>
           @foreach($tasks as $task)
-            <h6>
-              <strong>{{ $task->user->name }}</strong> |
-                {{ substr($task->description, 0, 100) }}{{ strlen($task->description) > 100 ? "...": ""}}
-            </h6> 
-              <label>Lisää tehtävälistaan</label>
-              <input type='checkbox' name={{$task->id}} id={{$task->id}}>
-            <hr>
+            {{$found = false}}
+            @foreach($tasklist->tasks as $list_task)
+              @if($task->id == $list_task->id)
+               {{$found = true}}
+              @endif
+            @endforeach
+            @if($found == false)
+              <h6>
+                <strong>{{ $task->user->name }}</strong> |
+                  {{ substr($task->description, 0, 100) }}{{ strlen($task->description) > 100 ? "...": ""}}
+              </h6> 
+                <label>Lisää tehtävälistaan</label>
+                <input type='checkbox' name={{$task->id}} id={{$task->id}}>
+              <hr>
+            @endif
           @endforeach
       </div>
    

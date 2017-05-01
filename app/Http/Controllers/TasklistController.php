@@ -102,7 +102,38 @@ class TasklistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $this->validate($request, array(
+            'body' => 'required|min:10'
+        ));
+        
+        $tasklist = Tasklist::find($id);
+        $tasklist->body = $request->input('body');
+
+        foreach(Task::all() as $task) {
+
+            $found = true;
+
+            foreach($tasklist->tasks as $list_task) {
+                if (Input::get($task->id) == 'on' && $list_task->id == $task->id) {
+                    $tasklist->tasks()->detach($task->id);
+                    $found = true;
+                    break;
+                }
+                else if (Input::get($task->id) == 'on' && $list_task->id != $task->id) {
+                    $found = false;
+                }
+            }
+            if ($tasklist->tasks->isEmpty() && Input::get($task->id) == 'on' || $found == false) {
+                $tasklist->tasks()->attach($task->id);
+            }
+
+        }
+        
+        $tasklist->save();
+        
+
+        return redirect()->route('tasklists.index')->with('success', 'Muokkaus onnistui!');
     }
 
     /**
