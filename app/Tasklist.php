@@ -15,6 +15,6 @@ class Tasklist extends Model
     }
 
     public function sets() {
-    	return $this->belongsToMany('App\Set');
+    	return $this->hasMany('App\Set');
     }
 }

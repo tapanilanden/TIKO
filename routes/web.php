@@ -23,7 +23,10 @@
         Route::resource('answers', 'AnswerController');
         Route::resource('tasklists','TasklistController');
         Route::resource('model_answers', 'ModelAnswerController');
-        Route::resource('sets', 'SetController');
+        Route::resource('sets', 'SetController', ['except' => ['store', 'show'
+        ]]);
+        Route::post('/sets/{id}/store', 'SetController@store');
+        Route::get('sets/{id}/{taskNumber}', 'SetController@show');
         Route::resource('tasks', 'TaskController');
         Route::resource('users','UserController');
 

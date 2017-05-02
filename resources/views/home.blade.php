@@ -15,8 +15,9 @@
             
             {{ substr($tasklist->body, 0, 100) }}{{ strlen($tasklist->body) > 100 ? "...": ""}}
             
-            <form method="get" action="/sets/create">
-            	<button class="btn btn-success btn-block" type="submit">Aloita tehtävälista</button>
+            <form method="post" action="/sets/{{$tasklist->id}}/store">
+            	{{ csrf_field() }}
+            	<button class="btn btn-success btn-block" type="submit">Aloita</button>
             </form>
         </h6>
     </div>
