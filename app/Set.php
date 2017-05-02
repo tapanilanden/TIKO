@@ -29,6 +29,12 @@ class Set extends Model
             $table->integer('arvosana');
         });
     }
+    
+    public function destroyData() {
+        Schema::dropIfExists('opiskelijat');
+        Schema::dropIfExists('kurssit');
+        Schema::dropIfExists('suoritukset');
+    }
 
 
 	public function answers()

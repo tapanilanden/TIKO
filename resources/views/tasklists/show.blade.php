@@ -7,6 +7,10 @@
             <div class="col-md-8">
                 <p>Tehtävälista luoja ja pvm: {{$tasklist->user->name}} {{$tasklist->created_at}}</p><hr>
                 <p>Tehtävälistan kuvaus: {{$tasklist->body }} </p><br>
+                <p>Tehtävät:</p>
+                @foreach($tasklist->tasks as $task)
+                    <p>{{ $loop->iteration . ". " . substr($task->description, 0, 100) }}{{ strlen($task->description) > 100 ? "...": ""}}</p>
+                @endforeach
             </div>
             
             <div class="col-md-4">
