@@ -144,6 +144,13 @@ class TasklistController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tasklist = Tasklist::find($id);
+
+        foreach($tasklist->tasks as $task) {
+            $tasklist->tasks()->detach($task->id);
+        }
+        $tasklist->delete();
+
+        return redirect()->route('tasklists.index')->with('success', 'Poisto onnistui!');
     }
 }
