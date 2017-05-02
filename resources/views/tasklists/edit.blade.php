@@ -38,10 +38,10 @@
       <div class="col-md-6">
         <label>Muut tehtävät:</label>
           @foreach($tasks as $task)
-            {{$found = false}}
+            <?php $found = false ?>
             @foreach($tasklist->tasks as $list_task)
               @if($task->id == $list_task->id)
-               {{$found = true}}
+               <?php $found = true ?>
               @endif
             @endforeach
             @if($found == false)
