@@ -6,7 +6,7 @@
   @if (Auth::guest())
   	<p>Aloita kirjautumalla sisään tai rekisteröimällä.</p>
   @else
-  	<label>Valitse tehtäväsarja:<label><br>
+  	<label>Valitse tehtävälista:<label><br>
   	@foreach($tasklists as $tasklist)
   		<div class="col-md-8">
         <h6>
