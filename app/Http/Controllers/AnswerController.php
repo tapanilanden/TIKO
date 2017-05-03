@@ -61,8 +61,11 @@ class AnswerController extends Controller
             Session::flash('error', 'Vastaus on väärin');
         }
         
-        return redirect()->route('sets.show', ['set' => $answer->set_id, 'taskNumber' => $taskNumber]);
-        
+        if($taskNumber <= $request->taskCount)
+            return redirect()->route('sets.show', ['set' => $answer->set_id, 'taskNumber' => $taskNumber]);
+        else { 
+            return redirect()->route('home');
+        }
     }
 
     /**
