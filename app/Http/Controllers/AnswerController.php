@@ -7,10 +7,50 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Answer;
 use App\Set;
+use App\Task;
 use Session;
+use DB;
 
 class AnswerController extends Controller
 {
+    
+        /**
+     * Apufunktio tehtävien tarkistukseen
+     *
+     *
+     */
+     
+     public function checkAnswer($answer, $task) {
+        try {
+            if ($task->type === 1 && strpos($answer, 'SELECT') !== false) {
+                $answerQuery = DB::select($answer->body);
+                $modelQuery = DB::select($task->model_query);
+                return ($answerQuery == $modelQuery)? true : false;
+            }
+            else if ($task->type === 2 && strpos($answer, 'INSERT') !== false) {
+                $answerQuery = DB::select($answer->body);
+                $modelQuery = DB::select($task->model_query);
+                return ($answerQuery == $modelQuery)? true : false;
+            }
+            else if ($task->type === 3 && strpos($answer, 'UPDATE') !== false) {
+                $answerQuery = DB::select($answer->body);
+                $modelQuery = DB::select($task->model_query);
+                return ($answerQuery == $modelQuery)? true : false;
+            }
+            else if ($task->type === 4 && strpos($answer, 'DELETE') !== false) {
+                $answerQuery = DB::select($answer->body);
+                $modelQuery = DB::select($task->model_query);
+                return ($answerQuery == $modelQuery)? true : false;
+            }
+            else
+                return false;
+        }
+        catch(QueryException $e) {
+            return false;
+        }
+     }
+     
+    
     /**
      * Display a listing of the resource.
      *
@@ -52,6 +92,11 @@ class AnswerController extends Controller
         
         $answer->save();
         
+        //Tehtävän tarkistus
+        $task = Task::find($request->task_id);
+        $answer->iscorrect = AnswerController::checkAnswer($answer, $task);
+        $answer->save();
+        
         $taskNumber = $request->taskNumber;
         if ($answer->iscorrect == true) {
             $taskNumber += 1;
@@ -69,7 +114,9 @@ class AnswerController extends Controller
             return redirect()->route('home');
         }
     }
+    
 
+     
     /**
      * Display the specified resource.
      *
