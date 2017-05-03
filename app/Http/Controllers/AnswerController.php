@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Answer;
-
+use App\Set;
 use Session;
 
 class AnswerController extends Controller
@@ -64,6 +64,8 @@ class AnswerController extends Controller
         if($taskNumber <= $request->taskCount)
             return redirect()->route('sets.show', ['set' => $answer->set_id, 'taskNumber' => $taskNumber]);
         else { 
+            $set = Set::find($answer->set_id);
+            $set->destroyData();
             return redirect()->route('home');
         }
     }

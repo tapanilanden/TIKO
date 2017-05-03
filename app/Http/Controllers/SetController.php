@@ -101,6 +101,13 @@ class SetController extends Controller
         $set->destroyData();
         $set->delete();
         
+        
+    }
+    
+    public function destroyTables($id) {
+        $set = Set::find($id);
+        $set->destroyData();
+        return redirect()->route('home');
     }
 
 }
