@@ -31,9 +31,9 @@ class Set extends Model
     }
     
     public function destroyData() {
-        Schema::dropIfExists('opiskelijat');
-        Schema::dropIfExists('kurssit');
-        Schema::dropIfExists('suoritukset');
+        Schema::dropIfExists('opiskelijat'. $this->id);
+        Schema::dropIfExists('kurssit'. $this->id);
+        Schema::dropIfExists('suoritukset'. $this->id);
     }
 
 
