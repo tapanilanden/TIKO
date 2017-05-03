@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Answer;
 
+use Session;
+
 class AnswerController extends Controller
 {
     /**
@@ -38,6 +40,28 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
+         $this->validate($request, array(
+            'answer' => 'required|min:10',
+        ));
+        
+        $answer = new Answer;
+        $answer->set_id = $request->set_id;
+        $answer->task_id = $request->task_id;
+        $answer->iscorrect = true;
+        $answer->body = $request->answer;
+        
+        $answer->save();
+        
+        $taskNumber = $request->taskNumber;
+        if ($answer->iscorrect == true) {
+            $taskNumber += 1;
+            Session::flash('success', 'Vastaus on oikein');
+        }
+        else {
+            Session::flash('error', 'Vastaus on väärin');
+        }
+        
+        return redirect()->route('sets.show', ['set' => $answer->set_id, 'taskNumber' => $taskNumber]);
         
     }
 

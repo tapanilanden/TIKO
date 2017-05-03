@@ -15,8 +15,9 @@
             
             {{ substr($tasklist->body, 0, 100) }}{{ strlen($tasklist->body) > 100 ? "...": ""}}
             
-            <form method="post" action="/sets/{{$tasklist->id}}/store">
+            <form method="post" action="{{ route('sets.store') }}">
             	{{ csrf_field() }}
+            	<input type="hidden" name="tl_id" value="{{ $tasklist->id }}">
             	<button class="btn btn-success btn-block" type="submit">Aloita</button>
             </form>
         </h6>

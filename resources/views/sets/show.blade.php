@@ -6,10 +6,13 @@
         <?php $counter = $counter + 1 ?>
         @if ($counter == $taskNumber)
         	<h2>{{$taskNumber}}. {{$task->description}}</h2><br>
-        	<form method="post" action="/sets/{{$set->id}}/{{$counter}}">
+        	<form method="post" action="{{ route('answers.store') }}">
         		{{csrf_field()}}
+        		<input name="task_id" type="hidden" value="{{ $task->id }}">
+        		<input name="set_id" type="hidden" value="{{ $set->id }}">
+        		<input name="taskNumber" type="hidden" value="{{ $taskNumber }}">
         		<label for="answer">Vastaus tähän:</label>
-        		<textarea id="answer" name="answer" required></textarea>
+        		<textarea class="form-control" id="answer" name="answer" required></textarea>
         		<button type="submit" class="btn btn-primary btn-block">Lukitse vastaus</button>
         	</form>
         @endif

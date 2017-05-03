@@ -25,8 +25,8 @@
         Route::resource('model_answers', 'ModelAnswerController');
         Route::resource('sets', 'SetController', ['except' => ['store', 'show'
         ]]);
-        Route::post('/sets/{id}/store', 'SetController@store');
-        Route::get('sets/{id}/{taskNumber}', 'SetController@show');
+        Route::post('sets', 'SetController@store')->name('sets.store');
+        Route::get('sets/{id}/{taskNumber}', 'SetController@show')->name('sets.show');
         Route::resource('tasks', 'TaskController');
         Route::resource('users','UserController');
 

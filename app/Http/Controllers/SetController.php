@@ -39,19 +39,19 @@ class SetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, Request $request)
+    public function store(Request $request)
     {
 
     	$set = new Set();
     	$set->user_id = Auth::user()->id;
-    	$set->tasklist_id = $id;
+    	$set->tasklist_id = $request->tl_id;
     	$set->save();
     	
         Set::createData($set->id);
 
         $taskNumber = 1;
 
-        return redirect()->action('SetController@show', ['id' => $set->id, 'taskNumber' => $taskNumber]);
+        return redirect()->route('sets.show', ['id' => $set->id, 'taskNumber' => $taskNumber]);
     }
 
     /**
@@ -97,7 +97,10 @@ class SetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $set = Set::find($id);
+        $set->destroyData();
+        $set->delete();
+        
     }
 
 }
