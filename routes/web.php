@@ -14,21 +14,21 @@
 
 	Route::group(['middleware' => ['web']], function () {
 
-	    Route::get('/', function () {
-	    return view('home');
+	   Route::get('/', 'HomeController@index');
 
-	    });
+        Auth::routes();
 
-    Auth::routes();
+        Route::get('/home', 'HomeController@index');
 
-    Route::get('/home', 'HomeController@index');
-
-    Route::resource('answers', 'AnswerController');
-    Route::resource('tasklists','TasklistController');
-    Route::resource('model_answers', 'ModelAnswerController');
-    Route::resource('sets', 'SetController');
-    Route::resource('tasks', 'TaskController');
-    Route::resource('users','UserController');
+        Route::resource('answers', 'AnswerController');
+        Route::resource('tasklists','TasklistController');
+        Route::resource('model_answers', 'ModelAnswerController');
+        Route::resource('sets', 'SetController', ['except' => ['store', 'show'
+        ]]);
+        Route::post('/sets/{id}/store', 'SetController@store');
+        Route::get('sets/{id}/{taskNumber}', 'SetController@show');
+        Route::resource('tasks', 'TaskController');
+        Route::resource('users','UserController');
 
 });
 

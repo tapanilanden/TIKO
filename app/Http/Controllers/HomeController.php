@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Auth;
 
+use App\Tasklist;
+
 class HomeController extends Controller
 {
     /**
@@ -25,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        return view('home');
+        $tasklists = Tasklist::all();
+        return view('home')->withTasklists($tasklists);
     }
 }

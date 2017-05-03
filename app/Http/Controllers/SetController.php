@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Set;
 
+use Auth;
+
 class SetController extends Controller
 {
 
@@ -37,15 +39,19 @@ class SetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
 
     	$set = new Set();
     	$set->user_id = Auth::user()->id;
-    	$set->list_id = Input::get('set');
+    	$set->tasklist_id = $id;
     	$set->save();
     	
-        Set::createData();
+        Set::createData($set->id);
+
+        $taskNumber = 1;
+
+        return redirect()->action('SetController@show', ['id' => $set->id, 'taskNumber' => $taskNumber]);
     }
 
     /**
@@ -54,9 +60,10 @@ class SetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $taskNumber)
     {
-        //
+        $set = Set::find($id);
+        return view('sets.show')->with(compact('set', 'taskNumber'));
     }
 
     /**
