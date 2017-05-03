@@ -2,9 +2,11 @@
 
     @section('content')
     <?php $counter = 0 ?>
+    
     @foreach($set->tasklist->tasks as $task)
         <?php $counter = $counter + 1 ?>
         @if ($counter == $taskNumber)
+            
         	<h2>{{$taskNumber}}. {{$task->description}}</h2><br>
         	<form method="post" action="{{ route('answers.store') }}">
         		{{csrf_field()}}
@@ -22,3 +24,18 @@
     @endforeach
 
 @stop
+
+    <script type="text/javascript">
+        
+        
+        
+        function redirectToHome() {
+            
+            
+        }
+        window.onload = setTimeout(function() {
+                            alert("Aika loppui! Session tiedot poistetaan.");
+                            window.location="{{ route('sets.timeout', ['id' => $set->id]) }}";
+                        }, 100000);
+        
+    </script>

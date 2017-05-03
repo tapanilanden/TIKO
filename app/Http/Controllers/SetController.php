@@ -104,6 +104,12 @@ class SetController extends Controller
         
     }
     
+    public function timeout($id) {
+        $set = Set::find($id);
+        $set->destroyData();
+        return redirect()->route('home');
+    }
+    
     public function destroyTables($id) {
         $set = Set::find($id);
         $set->destroyData();
