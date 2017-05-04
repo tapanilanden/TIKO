@@ -22,22 +22,22 @@ class AnswerController extends Controller
      
      public function checkAnswer($answer, $task) {
         try {
-            if ($task->type === 1 && strpos($answer, 'SELECT') !== false) {
+            if ($task->type === 1 && stripos($answer, 'SELECT') !== false) {
                 $answerQuery = DB::select($answer->body);
                 $modelQuery = DB::select($task->model_query);
                 return ($answerQuery == $modelQuery)? true : false;
             }
-            else if ($task->type === 2 && strpos($answer, 'INSERT') !== false) {
+            else if ($task->type === 2 && stripos($answer, 'INSERT') !== false) {
                 $answerQuery = DB::select($answer->body);
                 $modelQuery = DB::select($task->model_query);
                 return ($answerQuery == $modelQuery)? true : false;
             }
-            else if ($task->type === 3 && strpos($answer, 'UPDATE') !== false) {
+            else if ($task->type === 3 && stripos($answer, 'UPDATE') !== false) {
                 $answerQuery = DB::select($answer->body);
                 $modelQuery = DB::select($task->model_query);
                 return ($answerQuery == $modelQuery)? true : false;
             }
-            else if ($task->type === 4 && strpos($answer, 'DELETE') !== false) {
+            else if ($task->type === 4 && stripos($answer, 'DELETE') !== false) {
                 $answerQuery = DB::select($answer->body);
                 $modelQuery = DB::select($task->model_query);
                 return ($answerQuery == $modelQuery)? true : false;
