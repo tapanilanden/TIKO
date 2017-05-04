@@ -31,25 +31,32 @@ class AnswerController extends Controller
             || ($task->type === 3 && stripos($answer, 'UPDATE') !== false)
             || ($task->type === 4 && stripos($answer, 'DELETE') !== false)) {
 
-                if ((stripos($answer, 'opiskelijat') !== false)
-                || (stripos($answer, 'kurssit') !== false)
-                || (stripos($answer, 'suoritukset') !== false)) {
+                if (stripos($answerQuery, 'opiskelijat') !== false) {
 
-                    $original = array("opiskelijat", "kurssit", "suoritukset");
-                    $modified = array("opiskelijat".$answer->set_id, "kurssit".$answer->set_id, "suoritukset".$answer->set_id);
-
-                    $answerQuery = str_replace($original, $modified, $answerQuery);
-                    $modelQuery = str_replace($original, $modified, $modelQuery);
-
-                    $answerQuery = DB::select($answerQuery);
-                    $modelQuery = DB::select($modelQuery);
-
+                    $answerQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $answerQuery);
+                    $modelQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $modelQuery);
                 }
+
+                if (stripos($answerQuery, 'kurssit') !== false) {
+
+                    $answerQuery = str_replace("kurssit", "kurssit".$answer->set_id, $answerQuery);
+                    $modelQuery = str_replace("kurssit", "kurssit".$answer->set_id, $modelQuery);
+                }
+
+                if (stripos($answerQuery, 'suoritukset') !== false) {
+
+                    $answerQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $answerQuery);
+                    $modelQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $modelQuery);
+                }
+
+                $answerQuery = DB::select($answerQuery);
+                $modelQuery = DB::select($modelQuery);
+
 
                 return ($answerQuery == $modelQuery)? true : false;
 
             }
-            
+
             else
                 return false;
         }
