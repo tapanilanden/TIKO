@@ -22,26 +22,34 @@ class AnswerController extends Controller
      
      public function checkAnswer($answer, $task) {
         try {
-            if ($task->type === 1 && stripos($answer, 'SELECT') !== false) {
-                $answerQuery = DB::select($answer->body);
-                $modelQuery = DB::select($task->model_query);
+
+            $answerQuery = $answer->body;
+            $modelQuery = $task->model_query;
+
+            if (($task->type === 1 && stripos($answer, 'SELECT') !== false)
+            || ($task->type === 2 && stripos($answer, 'INSERT') !== false)
+            || ($task->type === 3 && stripos($answer, 'UPDATE') !== false)
+            || ($task->type === 4 && stripos($answer, 'DELETE') !== false)) {
+
+                if ((stripos($answer, 'opiskelijat') !== false)
+                || (stripos($answer, 'kurssit') !== false)
+                || (stripos($answer, 'suoritukset') !== false)) {
+
+                    $original = array("opiskelijat", "kurssit", "suoritukset");
+                    $modified = array("opiskelijat".$answer->set_id, "kurssit".$answer->set_id, "suoritukset".$answer->set_id);
+
+                    $answerQuery = str_replace($original, $modified, $answerQuery);
+                    $modelQuery = str_replace($original, $modified, $modelQuery);
+
+                    $answerQuery = DB::select($answerQuery);
+                    $modelQuery = DB::select($modelQuery);
+
+                }
+
                 return ($answerQuery == $modelQuery)? true : false;
+
             }
-            else if ($task->type === 2 && stripos($answer, 'INSERT') !== false) {
-                $answerQuery = DB::select($answer->body);
-                $modelQuery = DB::select($task->model_query);
-                return ($answerQuery == $modelQuery)? true : false;
-            }
-            else if ($task->type === 3 && stripos($answer, 'UPDATE') !== false) {
-                $answerQuery = DB::select($answer->body);
-                $modelQuery = DB::select($task->model_query);
-                return ($answerQuery == $modelQuery)? true : false;
-            }
-            else if ($task->type === 4 && stripos($answer, 'DELETE') !== false) {
-                $answerQuery = DB::select($answer->body);
-                $modelQuery = DB::select($task->model_query);
-                return ($answerQuery == $modelQuery)? true : false;
-            }
+            
             else
                 return false;
         }
