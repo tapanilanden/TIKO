@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('has_semicolon', function($attribute, $value, $parameters, $validator) {
-            return substr($value, -1) === ';';
+            return ends_with($value, ';');
         });
 
         Validator::extend('paired_parenthesis', function($attribute, $value, $parameters, $validator) {

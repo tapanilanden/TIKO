@@ -55,12 +55,12 @@ class AnswerController extends Controller
 
                 return ($answerQuery == $modelQuery)? true : false;
 
-            }
-
-            else
+            } else {
                 return false;
+            }
         }
-        catch(QueryException $e) {
+        catch(\Illuminate\Database\QueryException $e) {
+            Session::flash('error', $e->errorInfo[2]);
             return false;
         }
      }
@@ -117,7 +117,7 @@ class AnswerController extends Controller
             $taskNumber += 1;
             Session::flash('success', 'Vastaus on oikein');
         }
-        else {
+        else if (!Session::has('error')) {
             Session::flash('error', 'Vastaus on väärin');
         }
         
