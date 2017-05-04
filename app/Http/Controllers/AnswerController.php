@@ -95,8 +95,8 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-         $this->validate($request, array(
-            'answer' => 'required|min:10',
+        $this->validate($request, array(
+            'answer' => 'required|min:10|has_semicolon|paired_parenthesis',
         ));
         
         $answer = new Answer;

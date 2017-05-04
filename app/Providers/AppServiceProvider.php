@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use Validator;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,7 +15,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Validator::extend('has_semicolon', function($attribute, $value, $parameters, $validator) {
+            return substr($value, -1) === ';';
+        });
+
+        Validator::extend('paired_parenthesis', function($attribute, $value, $parameters, $validator) {
+            return substr_count($value, '(') === substr_count($value, ')');
+        });
     }
 
     /**

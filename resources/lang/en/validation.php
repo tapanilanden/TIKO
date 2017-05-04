@@ -85,6 +85,8 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
+    'has_semicolon'        => 'The :attribute must end with a semicolon.',
+    'paired_parenthesis'   => 'The :attribute must have a correct amount of parenthesis.',
 
     /*
     |--------------------------------------------------------------------------

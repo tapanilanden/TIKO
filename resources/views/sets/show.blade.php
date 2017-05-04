@@ -23,6 +23,8 @@
         
     @endforeach
 
+    @include('layouts.errors')
+
 @stop
 
     <script type="text/javascript">
