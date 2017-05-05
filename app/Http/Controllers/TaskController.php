@@ -107,16 +107,21 @@ class TaskController extends Controller
         $this->validate($request, array(
             'description' => 'required|min:10',
             'type' => 'required',
-            'model_query' => 'required|min:10|max:200'
+            'model_query' => 'required|min:10|max:200',
+            'model_answer' => 'required|min:10|max:200'
         ));
         
         $task = Task::find($id);
         $task->description = $request->input('description');
         $task->model_query = $request->input('model_query');
         $task->type = $request->input('type');
+
+        $model_answer = $request->input('model_answer');
         
         $task->save();
-        
+
+
+        $task->modelAnswer->update(['body' => $model_answer]);
 
         return redirect()->route('tasks.index')->with('success', 'Muokkaus onnistui!');
 

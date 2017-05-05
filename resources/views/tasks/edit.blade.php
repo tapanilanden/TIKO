@@ -26,6 +26,14 @@
                 required>{{ $task->model_query }}</textarea>
       </div>
 
+      <div class="form-group">
+        <label for="body">Tarkastuskysely:</label>
+        <textarea id="model_answer" name="model_answer" class="form-control" rows="8" 
+                required>{{ $task->modelAnswer->body }}</textarea>
+      </div>
+
+
+
       <div class="col-md-6">
           <input type="radio" name="type" value="1" checked>SELECT<br>
           <input type="radio" name="type" value="2">INSERT<br>
