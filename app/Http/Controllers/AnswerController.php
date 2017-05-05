@@ -45,26 +45,33 @@ class AnswerController extends Controller
                 $answer = $helpTable['answer'];
                 
                 $answerQuery = DB::insert($answerQuery);
-                //dd($answerQuery);
-                
-                
-                
-                return false;
+                $modelQuery = DB::select($modelQuery);
+
+                return !empty($modelQuery)?true:false;
             
             }
             else if($task->type === 3 && stripos($answer, 'UPDATE') !== false) {
-            
+                $helpTable = AnswerController::addIdToTableName($answerQuery, $modelQuery, $answer);
+                $answerQuery = $helpTable['answerQuery'];
+                $modelQuery = $helpTable['modelQuery'];
+                $answer = $helpTable['answer'];
+                
+                $answerQuery = DB::update($answerQuery);
+                $modelQuery = DB::select($modelQuery);
+
+                return !empty($modelQuery)?true:false;
             }
             else if ($task->type === 4 && stripos($answer, 'DELETE') !== false) {
 
+                $helpTable = AnswerController::addIdToTableName($answerQuery, $modelQuery, $answer);
+                $answerQuery = $helpTable['answerQuery'];
+                $modelQuery = $helpTable['modelQuery'];
+                $answer = $helpTable['answer'];
                 
-                $answerQuery = DB::select($answerQuery);
-                //dd($answerQuery);
+                $answerQuery = DB::delete($answerQuery);
                 $modelQuery = DB::select($modelQuery);
-                //var_dump($modelQuery);
 
-
-                return ($answerQuery == $modelQuery)? true : false;
+                return empty($modelQuery)?true:false;
 
             } else {
                 return false;
