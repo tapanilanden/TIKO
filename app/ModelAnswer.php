@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModelAnswer extends Model
 {
+
+	protected $fillable = [
+        'body'
+    ];
+
     public function task() {
-        return $this->belongsTo('App\Task');
+        return $this->hasOne('App\Task');
     }
 }
