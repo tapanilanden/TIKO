@@ -42,16 +42,17 @@ class SetController extends Controller
      */
     public function store(Request $request)
     {
-
+        
+        
     	$set = new Set();
     	$set->user_id = Auth::user()->id;
     	$set->tasklist_id = $request->tl_id;
     	$set->save();
     	
         Set::createData($set->id);
-
+        
         $taskNumber = 1;
-
+        
         return redirect()->route('sets.show', ['id' => $set->id, 'taskNumber' => $taskNumber]);
     }
 
@@ -63,10 +64,12 @@ class SetController extends Controller
      */
     public function show($id, $taskNumber)
     {
+        
         $set = Set::find($id);
         $opiskelijat = DB::select('select * from opiskelijat'.$set->id);
         $kurssit = DB::select('select * from kurssit'.$set->id);
         $suoritukset = DB::select('select * from suoritukset'.$set->id);
+        
         return view('sets.show')->with(compact('set', 'taskNumber', 'opiskelijat', 'kurssit', 'suoritukset'));
     }
 

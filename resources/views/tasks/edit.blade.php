@@ -39,7 +39,7 @@
     </form>
 
 
-    @include ('layouts.errors')
+
 
 
   </div>

@@ -44,9 +44,14 @@ class AnswerController extends Controller
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
                 
+                DB::beginTransaction();
                 $answerQuery = DB::insert($answerQuery);
+            
                 $modelQuery = DB::select($modelQuery);
-
+                
+                if (empty($modelQuery)) {
+                    DB::rollback();
+                }
                 return !empty($modelQuery)?true:false;
             
             }

@@ -45,6 +45,7 @@
                   {{ $flash }}
               </div>
         @endif
+        @include('layouts.errors')        
 
         @yield ('content')
 
