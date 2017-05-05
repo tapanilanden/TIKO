@@ -17,18 +17,21 @@ class Set extends Model
     		$table->integer('nro');
             $table->string('nimi');
             $table->string('p_aine');
+            $table->primary('nro');
         });
 
         Schema::create('kurssit' . $id, function (Blueprint $table) {
     		$table->integer('id');
             $table->string('nimi');
             $table->string('opettaja');
+            $table->primary('id');
         });
 
         Schema::create('suoritukset' . $id, function (Blueprint $table) {
     		$table->integer('k_id');
             $table->integer('op_nro');
             $table->integer('arvosana');
+            $table->unique(['k_id', 'op_nro']);
         });
 
         DB::table('opiskelijat' . $id)->insert([

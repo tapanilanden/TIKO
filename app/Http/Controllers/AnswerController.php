@@ -26,31 +26,42 @@ class AnswerController extends Controller
             $answerQuery = $answer->body;
             $modelQuery = $task->model_query;
 
-            if (($task->type === 1 && stripos($answer, 'SELECT') !== false)
-            || ($task->type === 2 && stripos($answer, 'INSERT') !== false)
-            || ($task->type === 3 && stripos($answer, 'UPDATE') !== false)
-            || ($task->type === 4 && stripos($answer, 'DELETE') !== false)) {
-
-                if (stripos($answerQuery, 'opiskelijat') !== false) {
-
-                    $answerQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $answerQuery);
-                    $modelQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $modelQuery);
-                }
-
-                if (stripos($answerQuery, 'kurssit') !== false) {
-
-                    $answerQuery = str_replace("kurssit", "kurssit".$answer->set_id, $answerQuery);
-                    $modelQuery = str_replace("kurssit", "kurssit".$answer->set_id, $modelQuery);
-                }
-
-                if (stripos($answerQuery, 'suoritukset') !== false) {
-
-                    $answerQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $answerQuery);
-                    $modelQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $modelQuery);
-                }
-
+            if ($task->type === 1 && stripos($answer, 'SELECT') !== false) {
+                $helpTable = AnswerController::addIdToTableName($answerQuery, $modelQuery, $answer);
+                $answerQuery = $helpTable['answerQuery'];
+                $modelQuery = $helpTable['modelQuery'];
+                $answer = $helpTable['answer'];
+                
                 $answerQuery = DB::select($answerQuery);
+                
                 $modelQuery = DB::select($modelQuery);
+                
+                return ($answerQuery == $modelQuery)? true : false;
+            }
+            else if ($task->type === 2 && stripos($answer, 'INSERT') !== false) {
+                $helpTable = AnswerController::addIdToTableName($answerQuery, $modelQuery, $answer);
+                $answerQuery = $helpTable['answerQuery'];
+                $modelQuery = $helpTable['modelQuery'];
+                $answer = $helpTable['answer'];
+                
+                $answerQuery = DB::insert($answerQuery);
+                //dd($answerQuery);
+                
+                
+                
+                return false;
+            
+            }
+            else if($task->type === 3 && stripos($answer, 'UPDATE') !== false) {
+            
+            }
+            else if ($task->type === 4 && stripos($answer, 'DELETE') !== false) {
+
+                
+                $answerQuery = DB::select($answerQuery);
+                //dd($answerQuery);
+                $modelQuery = DB::select($modelQuery);
+                //var_dump($modelQuery);
 
 
                 return ($answerQuery == $modelQuery)? true : false;
@@ -63,6 +74,33 @@ class AnswerController extends Controller
             Session::flash('error', $e->errorInfo[2]);
             return false;
         }
+     }
+     
+     public function addIdToTableName($answerQuery, $modelQuery, $answer) {
+        
+        if (stripos($answerQuery, 'opiskelijat') !== false) {
+
+            $answerQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $answerQuery);
+            $modelQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $modelQuery);
+            
+        }
+
+        if (stripos($answerQuery, 'kurssit') !== false) {
+
+            $answerQuery = str_replace("kurssit", "kurssit".$answer->set_id, $answerQuery);
+            $modelQuery = str_replace("kurssit", "kurssit".$answer->set_id, $modelQuery);
+            
+        }
+
+        if (stripos($answerQuery, 'suoritukset') !== false) {
+
+            $answerQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $answerQuery);
+            $modelQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $modelQuery);
+            
+        }
+        return ['modelQuery' => $modelQuery, 'answerQuery' => $answerQuery, 'answer' => $answer];
+
+     
      }
      
     
