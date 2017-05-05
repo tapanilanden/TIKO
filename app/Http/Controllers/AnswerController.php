@@ -22,30 +22,45 @@ class AnswerController extends Controller
      
      public function checkAnswer($answer, $task) {
         try {
-            if ($task->type === 1 && strpos($answer, 'SELECT') !== false) {
-                $answerQuery = DB::select($answer->body);
-                $modelQuery = DB::select($task->model_query);
+
+            $answerQuery = $answer->body;
+            $modelQuery = $task->model_query;
+
+            if (($task->type === 1 && stripos($answer, 'SELECT') !== false)
+            || ($task->type === 2 && stripos($answer, 'INSERT') !== false)
+            || ($task->type === 3 && stripos($answer, 'UPDATE') !== false)
+            || ($task->type === 4 && stripos($answer, 'DELETE') !== false)) {
+
+                if (stripos($answerQuery, 'opiskelijat') !== false) {
+
+                    $answerQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $answerQuery);
+                    $modelQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $modelQuery);
+                }
+
+                if (stripos($answerQuery, 'kurssit') !== false) {
+
+                    $answerQuery = str_replace("kurssit", "kurssit".$answer->set_id, $answerQuery);
+                    $modelQuery = str_replace("kurssit", "kurssit".$answer->set_id, $modelQuery);
+                }
+
+                if (stripos($answerQuery, 'suoritukset') !== false) {
+
+                    $answerQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $answerQuery);
+                    $modelQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $modelQuery);
+                }
+
+                $answerQuery = DB::select($answerQuery);
+                $modelQuery = DB::select($modelQuery);
+
+
                 return ($answerQuery == $modelQuery)? true : false;
-            }
-            else if ($task->type === 2 && strpos($answer, 'INSERT') !== false) {
-                $answerQuery = DB::select($answer->body);
-                $modelQuery = DB::select($task->model_query);
-                return ($answerQuery == $modelQuery)? true : false;
-            }
-            else if ($task->type === 3 && strpos($answer, 'UPDATE') !== false) {
-                $answerQuery = DB::select($answer->body);
-                $modelQuery = DB::select($task->model_query);
-                return ($answerQuery == $modelQuery)? true : false;
-            }
-            else if ($task->type === 4 && strpos($answer, 'DELETE') !== false) {
-                $answerQuery = DB::select($answer->body);
-                $modelQuery = DB::select($task->model_query);
-                return ($answerQuery == $modelQuery)? true : false;
-            }
-            else
+
+            } else {
                 return false;
+            }
         }
-        catch(QueryException $e) {
+        catch(\Illuminate\Database\QueryException $e) {
+            Session::flash('error', $e->errorInfo[2]);
             return false;
         }
      }
@@ -80,8 +95,8 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-         $this->validate($request, array(
-            'answer' => 'required|min:10',
+        $this->validate($request, array(
+            'answer' => 'required|min:10|has_semicolon|paired_parenthesis',
         ));
         
         $answer = new Answer;
@@ -102,7 +117,7 @@ class AnswerController extends Controller
             $taskNumber += 1;
             Session::flash('success', 'Vastaus on oikein');
         }
-        else {
+        else if (!Session::has('error')) {
             Session::flash('error', 'Vastaus on väärin');
         }
         

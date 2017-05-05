@@ -23,6 +23,8 @@
         
     @endforeach
 
+    @include('layouts.errors')
+
 @stop
 
     <script type="text/javascript">
@@ -36,6 +38,6 @@
         window.onload = setTimeout(function() {
                             alert("Aika loppui! Session tiedot poistetaan.");
                             window.location="{{ route('sets.timeout', ['id' => $set->id]) }}";
-                        }, 100000);
+                        }, 600000);
         
     </script>

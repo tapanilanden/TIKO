@@ -18,7 +18,7 @@
             <form method="post" action="{{ route('sets.store') }}">
             	{{ csrf_field() }}
             	<input type="hidden" name="tl_id" value="{{ $tasklist->id }}">
-            	<button class="btn btn-success btn-block" type="submit">Aloita</button>
+            	<button type="submit" class="btn btn-primary btn-block">ALOITA</button>
             </form>
         </h6>
     </div>

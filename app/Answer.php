@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
-    public function sets()
+    public function set()
     {
         return $this->belongsTo('App\Set');
     }
 
-    public function users()
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
