@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Task;
+use App\ModelAnswer;
 use Illuminate\Support\Facades\Auth;
 use Session;
 
@@ -44,7 +45,8 @@ class TaskController extends Controller
         $this->validate($request, array(
             'description' => 'required|min:10',
             'type' => 'required',
-            'model_query' => 'required|min:10|max:200'
+            'model_query' => 'required|min:10|max:200',
+            'model_answer' => 'required|min:10|max:200'
         ));
         
         $task = new Task;
@@ -53,8 +55,17 @@ class TaskController extends Controller
         $task->type = $request->type;
         $task->model_query = $request->model_query;
         $task->save();
+
+        $model_answer = new \App\ModelAnswer([
+
+                "body" => $request->model_answer
+
+            ]);
+
+        $task->modelAnswer()->save($model_answer);
            
         return redirect()->action('TaskController@index')->with('success', 'Tehtävä tallennettu!');
+
 
     }
 
