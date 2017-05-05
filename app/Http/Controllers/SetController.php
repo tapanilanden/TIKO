@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Set;
 
 use Auth;
+use DB;
 
 class SetController extends Controller
 {
@@ -63,7 +64,10 @@ class SetController extends Controller
     public function show($id, $taskNumber)
     {
         $set = Set::find($id);
-        return view('sets.show')->with(compact('set', 'taskNumber'));
+        $opiskelijat = DB::select('select * from opiskelijat'.$set->id);
+        $kurssit = DB::select('select * from kurssit'.$set->id);
+        $suoritukset = DB::select('select * from suoritukset'.$set->id);
+        return view('sets.show')->with(compact('set', 'taskNumber', 'opiskelijat', 'kurssit', 'suoritukset'));
     }
 
     /**
