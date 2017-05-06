@@ -214,7 +214,7 @@ class AnswerController extends Controller
             session(['count' => 0]);
             
         }
-        else if (!Session::has('error')) {
+        else {
             Session::flash('error', 'Vastaus on väärin');
         }
         
