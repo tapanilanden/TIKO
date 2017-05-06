@@ -27,7 +27,7 @@ class AnswerController extends Controller
             $modelQuery = $task->model_query;
 
             if ($task->type === 1 && stripos($answer, 'SELECT') !== false) {
-                $helpTable = AnswerController::addIdToTableName($answerQuery, $modelQuery, $answer);
+                $helpTable = AnswerController::addIdToTableName($modelQuery, $answer, $answerQuery);
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
@@ -39,7 +39,7 @@ class AnswerController extends Controller
                 return ($answerQuery == $modelQuery)? true : false;
             }
             else if ($task->type === 2 && stripos($answer, 'INSERT') !== false) {
-                $helpTable = AnswerController::addIdToTableName($answerQuery, $modelQuery, $answer);
+                $helpTable = AnswerController::addIdToTableName($modelQuery, $answer, $answerQuery);
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
@@ -51,12 +51,15 @@ class AnswerController extends Controller
                 
                 if (empty($modelQuery)) {
                     DB::rollback();
+                    return false;
+                } else {
+                    DB::commit();
+                    return true;
                 }
-                return !empty($modelQuery)?true:false;
             
             }
             else if($task->type === 3 && stripos($answer, 'UPDATE') !== false) {
-                $helpTable = AnswerController::addIdToTableName($answerQuery, $modelQuery, $answer);
+                $helpTable = AnswerController::addIdToTableName($modelQuery, $answer, $answerQuery);
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
@@ -68,7 +71,7 @@ class AnswerController extends Controller
             }
             else if ($task->type === 4 && stripos($answer, 'DELETE') !== false) {
 
-                $helpTable = AnswerController::addIdToTableName($answerQuery, $modelQuery, $answer);
+                $helpTable = AnswerController::addIdToTableName($modelQuery, $answer, $answerQuery);
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
@@ -88,28 +91,29 @@ class AnswerController extends Controller
         }
      }
      
-     public function addIdToTableName($answerQuery, $modelQuery, $answer) {
+     public function addIdToTableName($modelQuery, $answer, $answerQuery = null) {
         
-        if (stripos($answerQuery, 'opiskelijat') !== false) {
+        if (stripos($modelQuery, 'opiskelijat') !== false) {
 
             $answerQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $answerQuery);
             $modelQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $modelQuery);
             
         }
 
-        if (stripos($answerQuery, 'kurssit') !== false) {
+        if (stripos($modelQuery, 'kurssit') !== false) {
 
             $answerQuery = str_replace("kurssit", "kurssit".$answer->set_id, $answerQuery);
             $modelQuery = str_replace("kurssit", "kurssit".$answer->set_id, $modelQuery);
             
         }
 
-        if (stripos($answerQuery, 'suoritukset') !== false) {
+        if (stripos($modelQuery, 'suoritukset') !== false) {
 
             $answerQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $answerQuery);
             $modelQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $modelQuery);
             
         }
+
         return ['modelQuery' => $modelQuery, 'answerQuery' => $answerQuery, 'answer' => $answer];
 
      
@@ -176,6 +180,21 @@ class AnswerController extends Controller
         else if ($tries >= 3) {
             $taskNumber += 1;
             Session::flash('error', "Yritykset loppuivat! Oikea vastaus: " . $task->modelAnswer->body);
+
+            if ($task->type == 2) {
+                $helpTable = AnswerController::addIdToTableName($task->modelAnswer->body, $answer);
+                $query = $helpTable['modelQuery'];
+                DB::insert($query);
+            } else if ($task->type == 3) {
+                $helpTable = AnswerController::addIdToTableName($task->modelAnswer->body, $answer);
+                $query = $helpTable['modelQuery'];
+                DB::update($query);
+            } else if ($task->type == 4) {
+                $helpTable = AnswerController::addIdToTableName($task->modelAnswer->body, $answer);
+                $query = $helpTable['modelQuery'];
+                DB::delete($query);
+            }
+
             session(['count' => 0]);
             
         }
