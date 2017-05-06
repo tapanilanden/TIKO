@@ -8,7 +8,8 @@
                 <p>Tehtävän luoja ja pvm: {{$task->user->name}} {{$task->created_at}}</p><hr>
                 <p>Tehtävän kuvaus: {{$task->description }} </p><br>
                 <p>Tehtävän tyyppi: @if ($task->type == 1) Select @elseif($task->type == 2) Insert @elseif($task->type == 3) Update @else Delete @endif</p><br>
-                <p>Tehtävän mallivastaus: {{$task->model_query}}</p><br>
+                <p>Tehtävän tarkastuskysely: {{$task->model_query}}</p><br>
+                <p>Tehtävän mallivastaus: {{$task->modelAnswer->body}}</p><br>
             </div>
             
             <div class="col-md-4">

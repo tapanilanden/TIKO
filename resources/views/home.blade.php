@@ -6,12 +6,24 @@
   @if (Auth::guest())
   	<p>Aloita kirjautumalla sisään tai rekisteröimällä.</p>
   @else
-  	<label>Valitse tehtävälista:<label><br>
+  	<label>Valitse suoritettava tehtävälista:<label><br>
   	@foreach($tasklists as $tasklist)
   		<div class="col-md-8">
+
+        @if ($tasklist->tasks->count())
         <h6>
             
             <strong>{{ $tasklist->user->name }}</strong> |
+            @if ($tasklist->tasks->count() == 1)
+            
+            <strong>{{ $tasklist->tasks->count()}} tehtävä</strong>  
+
+            @else
+
+            <strong>{{ $tasklist->tasks->count()}} tehtävää</strong> 
+
+
+            @endif
             
             {{ substr($tasklist->body, 0, 100) }}{{ strlen($tasklist->body) > 100 ? "...": ""}}
             
@@ -21,6 +33,7 @@
             	<button type="submit" class="btn btn-primary btn-block">ALOITA</button>
             </form>
         </h6>
+        @endif
     </div>
     @endforeach
   @endif

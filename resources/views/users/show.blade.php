@@ -4,6 +4,45 @@
 
 	<h1>{{$user->name}}</h1><hr>
 
+  @if ((Auth::user()->role == 1) && ($user->role != 1))
+
+            @if ($user->role != 2)
+
+              <!-- <form method="POST" action={{ url('/users/'.$user->id.'/moderate') }}>
+
+                {{ csrf_field() }}
+
+                <input type="hidden" name="id" value="{{ $user->id }}"> -->
+                <form method="POST" action={{ url('users/'.$user->id) }}>
+
+                  <input type="hidden" name="_method" value="PUT">
+
+                <button type="submit" class="btn btn-outline-success btn-sm">Anna opettajan oikeudet</button>
+              </form>
+            @endif
+
+            @if ($user->roles == 2)
+
+              <!-- <form method="POST" action={{ url('/users/'.$user->id.'/demoderate') }}>
+
+                {{ csrf_field() }}
+
+                <input type="hidden" name="id" value="{{ $user->id }}"> -->
+
+                <form method="POST" action={{ url('users/'.$user->id) }}>
+
+                  <input type="hidden" name="_method" value="PUT">
+
+                <button type="submit" class="btn btn-outline-warning btn-sm">Poista opettajan oikeudet</button>
+              </form>
+            @endif
+
+          </div>
+          <hr />
+    @endif
+
+
+
   <h5>Käytäjän tiedot:</h5>
 
   <p><b>Sähköpostiosoite:</b> {{ $user->email }}

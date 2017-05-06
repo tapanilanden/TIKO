@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use Session;
 
 class UserController extends Controller
 {
@@ -61,7 +62,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        
+        return view('users.edit')->withUser($user);
     }
 
     /**
@@ -73,7 +76,27 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $this->validate($request, array(
+                'name' => 'required|string|max:255',
+                'ppt' => 'required|string',
+                'email' => 'required|string|email|max:255'
+            ));
+            
+            $user = User::find($id);
+            $user->name = $request->input('name');
+            $user->ppt = $request->input('ppt');
+            $user->email = $request->input('email');
+            $user->major = $request->input('major');
+            
+            $user->save();
+
+            return redirect()->route('users.index')->with('success', 'Muokkaus onnistui!');
+        }
+        catch(\Illuminate\Database\QueryException $e) {
+            Session::flash('error', $e->errorInfo[2]);
+            return redirect()->back()->with('error', 'Peruspalvelutunnus tai sähköpostiosoite on jo käytössä.');
+        }
     }
 
     /**
