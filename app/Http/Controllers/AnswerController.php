@@ -201,20 +201,23 @@ class AnswerController extends Controller
                 $helpTable = AnswerController::addIdToTableName($task->modelAnswer->body, $answer);
                 $query = $helpTable['modelQuery'];
                 DB::insert($query);
+                DB::commit();
             } else if ($task->type == 3) {
                 $helpTable = AnswerController::addIdToTableName($task->modelAnswer->body, $answer);
                 $query = $helpTable['modelQuery'];
                 DB::update($query);
+                DB::commit();
             } else if ($task->type == 4) {
                 $helpTable = AnswerController::addIdToTableName($task->modelAnswer->body, $answer);
                 $query = $helpTable['modelQuery'];
                 DB::delete($query);
+                DB::commit());
             }
 
             session(['count' => 0]);
             
         }
-        else {
+        else if (!Session::has('error')) {
             Session::flash('error', 'Vastaus on väärin');
         }
         
