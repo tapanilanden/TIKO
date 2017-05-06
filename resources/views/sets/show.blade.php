@@ -75,8 +75,6 @@
         		<button type="submit" class="btn btn-primary btn-block">Lukitse vastaus</button>
         	</form>
         	
-        	
-        	
         @endif
         
     @endforeach

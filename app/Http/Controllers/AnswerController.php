@@ -27,7 +27,7 @@ class AnswerController extends Controller
             $modelQuery = $task->model_query;
 
             if ($task->type === 1 && stripos($answer, 'SELECT') !== false) {
-                $helpTable = AnswerController::addIdToTableName($modelQuery, $answer, $answerQuery);
+                $helpTable = AnswerController::addIdToTableName($answerQuery, $answer, $modelQuery);
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
@@ -35,11 +35,17 @@ class AnswerController extends Controller
                 $answerQuery = DB::select($answerQuery);
                 
                 $modelQuery = DB::select($modelQuery);
+
+                if ($answerQuery == $modelQuery) {
+                    Session::flash('success', 'Vastaus on oikein. Kyselysi tulos: ' . json_encode($answerQuery));
+                } else {
+                    Session::flash('error', 'Vastaus on väärin. Kyselysi tulos: ' . json_encode($answerQuery));
+                }
                 
                 return ($answerQuery == $modelQuery)? true : false;
             }
             else if ($task->type === 2 && stripos($answer, 'INSERT') !== false) {
-                $helpTable = AnswerController::addIdToTableName($modelQuery, $answer, $answerQuery);
+                $helpTable = AnswerController::addIdToTableName($answerQuery, $answer, $modelQuery);
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
@@ -59,7 +65,7 @@ class AnswerController extends Controller
             
             }
             else if($task->type === 3 && stripos($answer, 'UPDATE') !== false) {
-                $helpTable = AnswerController::addIdToTableName($modelQuery, $answer, $answerQuery);
+                $helpTable = AnswerController::addIdToTableName($answerQuery, $answer, $modelQuery);
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
@@ -78,7 +84,7 @@ class AnswerController extends Controller
             }
             else if ($task->type === 4 && stripos($answer, 'DELETE') !== false) {
 
-                $helpTable = AnswerController::addIdToTableName($modelQuery, $answer, $answerQuery);
+                $helpTable = AnswerController::addIdToTableName($answerQuery, $answer, $modelQuery);
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
@@ -106,23 +112,23 @@ class AnswerController extends Controller
         }
      }
      
-     public function addIdToTableName($modelQuery, $answer, $answerQuery = null) {
+     public function addIdToTableName($answerQuery, $answer, $modelQuery = null) {
         
-        if (stripos($modelQuery, 'opiskelijat') !== false) {
+        if (stripos($answerQuery, 'opiskelijat') !== false) {
 
             $answerQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $answerQuery);
             $modelQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $modelQuery);
             
         }
 
-        if (stripos($modelQuery, 'kurssit') !== false) {
+        if (stripos($answerQuery, 'kurssit') !== false) {
 
             $answerQuery = str_replace("kurssit", "kurssit".$answer->set_id, $answerQuery);
             $modelQuery = str_replace("kurssit", "kurssit".$answer->set_id, $modelQuery);
             
         }
 
-        if (stripos($modelQuery, 'suoritukset') !== false) {
+        if (stripos($answerQuery, 'suoritukset') !== false) {
 
             $answerQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $answerQuery);
             $modelQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $modelQuery);
@@ -190,7 +196,9 @@ class AnswerController extends Controller
         $taskNumber = $request->taskNumber;
         if ($answer->iscorrect == true) {
             $taskNumber += 1;
-            Session::flash('success', 'Vastaus on oikein');
+            if (!Session::has('success')) {
+                Session::flash('success', 'Vastaus on oikein');
+            }
             session(['count' => 0]);
         }
         else if ($tries >= 3) {
@@ -199,17 +207,17 @@ class AnswerController extends Controller
 
             if ($task->type == 2) {
                 $helpTable = AnswerController::addIdToTableName($task->modelAnswer->body, $answer);
-                $query = $helpTable['modelQuery'];
+                $query = $helpTable['answerQuery'];
                 DB::insert($query);
                 DB::commit();
             } else if ($task->type == 3) {
                 $helpTable = AnswerController::addIdToTableName($task->modelAnswer->body, $answer);
-                $query = $helpTable['modelQuery'];
+                $query = $helpTable['answerQuery'];
                 DB::update($query);
                 DB::commit();
             } else if ($task->type == 4) {
                 $helpTable = AnswerController::addIdToTableName($task->modelAnswer->body, $answer);
-                $query = $helpTable['modelQuery'];
+                $query = $helpTable['answerQuery'];
                 DB::delete($query);
                 DB::commit();
             }
