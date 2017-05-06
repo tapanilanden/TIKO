@@ -18,6 +18,9 @@
 
         Auth::routes();
 
+        Route::post('users/{id}/makeMod', 'UserController@makeMod');
+        Route::post('users/{id}/unmakeMod', 'UserController@unmakeMod');
+
         Route::get('/home', 'HomeController@index')->name('home');
 
         Route::resource('answers', 'AnswerController');

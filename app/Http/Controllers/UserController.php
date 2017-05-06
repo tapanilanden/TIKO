@@ -112,4 +112,30 @@ class UserController extends Controller
         
         return redirect()->route('users.index')->with('success', 'Käyttäjä poistettu onnistuneesti!');
     }
+
+
+      public function makeMod(Request $request){
+      $id = $request->input('id');
+      $user = User::find($id);
+
+      // redirect
+      $user->role = 2;
+      $user->save();
+      session()->flash('message', 'Opettajan oikeudet annettu!');
+      return redirect()->back();
+    }
+
+      public function unmakeMod(Request $request){
+          $id = $request->input('id');
+          $user = User::find($id);
+
+          $user->role = 3;
+        $user->save();
+
+          // redirect
+          session()->flash('message', 'Opettajan oikeudet poistettu!');
+          return redirect()->back();
+      }
+
+
 }
