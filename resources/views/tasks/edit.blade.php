@@ -35,10 +35,26 @@
 
 
       <div class="col-md-6">
-          <input type="radio" name="type" value="1" checked>SELECT<br>
-          <input type="radio" name="type" value="2">INSERT<br>
-          <input type="radio" name="type" value="3">UPDATE<br>
-          <input type="radio" name="type" value="4">DELETE
+          @if ($task->type == 1)
+            <input type="radio" name="type" value="1" checked>SELECT<br>
+          @else
+            <input type="radio" name="type" value="1">SELECT<br>
+          @endif
+          @if ($task->type == 2)
+            <input type="radio" name="type" value="2" checked>INSERT<br>
+          @else
+            <input type="radio" name="type" value="2">INSERT<br>
+          @endif
+          @if ($task->type == 3)
+            <input type="radio" name="type" value="3" checked>UPDATE<br>
+          @else
+            <input type="radio" name="type" value="3">UPDATE<br>
+          @endif
+          @if ($task->type == 4)
+            <input type="radio" name="type" value="4" checked>DELETE
+          @else
+            <input type="radio" name="type" value="4">DELETE
+          @endif
       </div>
 
       <div class="form-group">
