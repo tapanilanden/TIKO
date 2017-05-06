@@ -64,16 +64,17 @@
         	<form method="post" action="{{ route('answers.store') }}">
         		{{csrf_field()}}
         		
+    
         	    
-        	    <input name="text" id="text" type="hidden" value="{{ $task->modelAnswer->body }}">
         		<input name="task_id" type="hidden" value="{{ $task->id }}">
         		<input name="set_id" type="hidden" value="{{ $set->id }}">
         		<input name="taskNumber" type="hidden" value="{{ $taskNumber }}">
         		<input name="taskCount" type="hidden" value="{{ $set->tasklist->tasks->count() }}">
         		<label for="answer">Vastaus tähän:</label>
         		<textarea class="form-control" id="answer" name="answer" required></textarea>
-        		<button type="submit" class="btn btn-primary btn-block" onclick="addTry()">Lukitse vastaus</button>
+        		<button type="submit" class="btn btn-primary btn-block">Lukitse vastaus</button>
         	</form>
+        	
         	
         	
         @endif
@@ -86,21 +87,7 @@
 
     <script type="text/javascript">
         
-        var value = 0;
-        
-        function addTry() {
-            value += 1;
-            if (value >= 3) {
-                var text = document.getElementById("text").value;
-                
-                
-                alert("Yritit kolme kertaa. Oikea vastaus on: " + text);
-                window.location="{{ route('home') }}";
-                value = 0;
-            }
-            console.log(value)
-        }
-        
+
         window.onload = setTimeout(function() {
                             alert("Aika loppui! Session tiedot poistetaan.");
                             window.location="{{ route('sets.timeout', ['id' => $set->id]) }}";

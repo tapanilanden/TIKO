@@ -40,10 +40,12 @@
           <div id="flash-message" class="alert alert-success" role="alert">
               {{ $flash }}
           </div>
+
           @elseif ($flash = session('error'))
               <div id="flash-message" class="alert alert-danger" role="alert">
                   {{ $flash }}
               </div>
+            
         @endif
         @include('layouts.errors')        
 

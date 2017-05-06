@@ -43,7 +43,7 @@ class SetController extends Controller
     public function store(Request $request)
     {
         
-        
+        session(['count' => 0]);
     	$set = new Set();
     	$set->user_id = Auth::user()->id;
     	$set->tasklist_id = $request->tl_id;

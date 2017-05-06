@@ -162,10 +162,22 @@ class AnswerController extends Controller
         $answer->iscorrect = AnswerController::checkAnswer($answer, $task);
         $answer->save();
         
+       
+        $tries = session('count');
+        $tries++;
+        session(['count' => $tries]);
+        
+        
         $taskNumber = $request->taskNumber;
         if ($answer->iscorrect == true) {
             $taskNumber += 1;
             Session::flash('success', 'Vastaus on oikein');
+        }
+        else if ($tries >= 3) {
+            $taskNumber += 1;
+            Session::flash('error', "Yritykset loppuivat! Oikea vastaus: " . $task->modelAnswer->body);
+            session(['count' => 0]);
+            
         }
         else if (!Session::has('error')) {
             Session::flash('error', 'Vastaus on väärin');
