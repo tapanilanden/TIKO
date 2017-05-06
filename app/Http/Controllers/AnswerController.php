@@ -67,7 +67,14 @@ class AnswerController extends Controller
                 $answerQuery = DB::update($answerQuery);
                 $modelQuery = DB::select($modelQuery);
 
-                return !empty($modelQuery)?true:false;
+                if (empty($modelQuery)) {
+                    DB::rollback();
+                    return false;
+                } else {
+                    DB::commit();
+                    return true;
+                }
+
             }
             else if ($task->type === 4 && stripos($answer, 'DELETE') !== false) {
 
@@ -75,11 +82,19 @@ class AnswerController extends Controller
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
+
+                DB::beginTransaction();
                 
                 $answerQuery = DB::delete($answerQuery);
                 $modelQuery = DB::select($modelQuery);
 
-                return empty($modelQuery)?true:false;
+                if (!empty($modelQuery)) {
+                    DB::rollback();
+                    return false;
+                } else {
+                    DB::commit();
+                    return true;
+                }
 
             } else {
                 return false;
@@ -176,6 +191,7 @@ class AnswerController extends Controller
         if ($answer->iscorrect == true) {
             $taskNumber += 1;
             Session::flash('success', 'Vastaus on oikein');
+            session(['count' => 0]);
         }
         else if ($tries >= 3) {
             $taskNumber += 1;
