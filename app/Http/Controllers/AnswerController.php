@@ -211,7 +211,7 @@ class AnswerController extends Controller
                 $helpTable = AnswerController::addIdToTableName($task->modelAnswer->body, $answer);
                 $query = $helpTable['modelQuery'];
                 DB::delete($query);
-                DB::commit());
+                DB::commit();
             }
 
             session(['count' => 0]);
