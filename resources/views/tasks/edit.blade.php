@@ -22,14 +22,14 @@
 
       <div class="form-group">
         <label for="body">Mallivastaus:</label>
-        <textarea id="model_query" name="model_query" class="form-control" rows="8" 
-                required>{{ $task->model_query }}</textarea>
+        <textarea id="model_answer" name="model_answer" class="form-control" rows="8" 
+                required>{{ $task->modelAnswer->body }}</textarea>
       </div>
 
       <div class="form-group">
         <label for="body">Tarkastuskysely:</label>
-        <textarea id="model_answer" name="model_answer" class="form-control" rows="8" 
-                required>{{ $task->modelAnswer->body }}</textarea>
+        <textarea id="model_query" name="model_query" class="form-control" rows="8" 
+                required>{{ $task->model_query }}</textarea>
       </div>
 
 

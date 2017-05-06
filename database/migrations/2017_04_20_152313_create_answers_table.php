@@ -20,7 +20,7 @@ class CreateAnswersTable extends Migration
             $table->foreign('set_id')->references('id')->on('sets');
 
             $table->integer('task_id')->unsigned();
-            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
 
             $table->text('body'); // Vastauksen sisältö
             $table->boolean('iscorrect'); // Onko vastaus oikein?
