@@ -65,13 +65,13 @@
             <div class="col-md-8"> 
             <h4>Info</h4>
             <p>
-            Tehtävälistan nopein suoritusaika: {{ $fastest }}
+            Tehtävälistan nopein suoritusaika (H:M:S): {{ $fastest }}
             </p>
             <p>
-            Tehtävälistan hitain suoritusaika: {{ $slowest }}
+            Tehtävälistan hitain suoritusaika (H:M:S): {{ $slowest }}
             </p>
             <p>
-            Tehtävälistan keskimääräinen suoritusaika: {{ $average }}
+            Tehtävälistan keskimääräinen suoritusaika (H:M:S): {{ $average }}
             </p>
             </div>
         </div>

@@ -20,19 +20,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::resource('answers', 'AnswerController');
 
-    Route::resource('sets', 'SetController', ['except' => ['store', 'show', 'index']]);
-
-    Route::post('sets', 'SetController@store')->name('sets.store');
-
-            
-    Route::get('sets/{id}/{taskNumber}', 'SetController@show')->name('sets.show');
-
-
-
-    Route::get('sets/{id}', 'SetController@timeout')->name('sets.timeout');
-
-
-    Route::delete('sets/{id}', 'SetController@destroyTables')->name('sets.destroyTables');
+    
 
 
     Route::get('/home', 'HomeController@index')->name('home');
@@ -70,6 +58,20 @@ Route::group(['middleware' => ['web']], function () {
             Route::resource('tasks', 'TaskController', ['except' => ['edit', 'update', 'destroy']]);
             Route::resource('tasklists', 'TasklistController', ['except' => ['edit', 'update', 'destroy']]);
     });
+
+    Route::resource('sets', 'SetController', ['except' => ['store', 'show', 'index']]);
+
+    Route::post('sets', 'SetController@store')->name('sets.store');
+
+            
+    Route::get('sets/{id}/{taskNumber}', 'SetController@show')->name('sets.show');
+
+
+
+    Route::get('sets/{id}', 'SetController@timeout')->name('sets.timeout');
+
+
+    Route::delete('sets/{id}', 'SetController@destroyTables')->name('sets.destroyTables');
 
 });
 
