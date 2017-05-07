@@ -2,10 +2,20 @@
 
     @section('content')
 
-    @foreach($sets as $set)
-        <h3>{{ $set->id }} </h3>
-        <p>{{ $set->user_id }}</p>
-    
-    @endforeach
+    <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                </div>
+
+            </div>
+
+
+            @foreach($sets as $set)
+                
+                    @include('sets.sets')
+
+            @endforeach
+            
+        </div>
 
 @stop

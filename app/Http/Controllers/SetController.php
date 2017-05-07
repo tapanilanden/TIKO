@@ -73,6 +73,13 @@ class SetController extends Controller
         return view('sets.show')->with(compact('set', 'taskNumber', 'opiskelijat', 'kurssit', 'suoritukset'));
     }
 
+    public function details($id)
+    {
+        $set = Set::find($id);
+        return view('sets.details')->with(compact('set'));
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *

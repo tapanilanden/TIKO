@@ -29,8 +29,12 @@
         Route::resource('sets', 'SetController', ['except' => ['store', 'show'
         ]]);
         Route::post('sets', 'SetController@store')->name('sets.store');
+        Route::get('sets/{id}/details', 'SetController@details')->name('sets.details');
         Route::get('sets/{id}/{taskNumber}', 'SetController@show')->name('sets.show');
         Route::get('sets/{id}', 'SetController@timeout')->name('sets.timeout');
+
+        Route::get('sets/{id}/{taskNumber}', 'SetController@show')->name('sets.show');
+
         Route::delete('sets/{id}', 'SetController@destroyTables')->name('sets.destroyTables');
         Route::resource('tasks', 'TaskController');
         Route::resource('users','UserController');
