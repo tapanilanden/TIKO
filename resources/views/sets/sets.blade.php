@@ -1,5 +1,6 @@
 @if ($set->answers->last()->task_id == $set->tasklist->tasks->last()->id)
 
+
 <div class="row well-sm"">
     <div class="col-md-8">
 
@@ -7,8 +8,10 @@
 
         <h6>
           <a href={{ url('/users/'.$set->user_id) }} >
+
             
             <strong>{{ $set->user->name }}</strong> 
+
             
           </a> |
 
