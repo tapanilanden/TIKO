@@ -26,6 +26,10 @@
           <li><a class="nav-link" href={{ url('/tasklists') }}>Tehtävälistat</a></li>
         @endif
 
+        @if (Auth::check()) 
+          <li><a class="nav-link" href={{ url('/users/' . Auth::user()->id)}}>Omat tiedot</a></li>
+        @endif
+
 
 
       </ul>
