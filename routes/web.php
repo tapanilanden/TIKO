@@ -38,12 +38,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => ['auth', 'CheckTasklist']], function () {
             Route::get('tasklists/{id}/edit', 'TasklistController@edit')->name('tasklists.edit');
             Route::put('tasklists/{id}', 'TasklistController@update');
-            Route::delete('tasklists/{id}', 'TasklistController@destroy')->name('tasklists.destroy');
     });
 
 
     Route::group(['middleware' => ['auth', 'CheckIfAdmin']], function () {
-            Route::resource('users','UserController', ['except' => ['show']]);
+            Route::resource('users','UserController', ['except' => ['show', 'destroy']]);
             
             Route::post('users/{id}/makeMod', 'UserController@makeMod');
             Route::post('users/{id}/unmakeMod', 'UserController@unmakeMod');

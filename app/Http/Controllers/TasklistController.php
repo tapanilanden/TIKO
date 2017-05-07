@@ -135,22 +135,4 @@ class TasklistController extends Controller
 
         return redirect()->route('tasklists.index')->with('success', 'Muokkaus onnistui!');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $tasklist = Tasklist::find($id);
-
-        foreach($tasklist->tasks as $task) {
-            $tasklist->tasks()->detach($task->id);
-        }
-        $tasklist->delete();
-
-        return redirect()->route('tasklists.index')->with('success', 'Poisto onnistui!');
-    }
 }
