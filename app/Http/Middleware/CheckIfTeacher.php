@@ -17,7 +17,8 @@ class CheckIfTeacher
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->role < 3) {
+        if ((Auth::user()->role = 1) 
+            || (Auth::user()->id == $request->user_id)) {
             return $next($request);
         }
         else {

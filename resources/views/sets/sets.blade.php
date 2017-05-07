@@ -14,7 +14,7 @@
 
           <a href={{ url('/sets/'.$set->id).'/details' }}>      
 
-            {{ $set->id }} | {{ $set->user->name }} | {{ $set->answers->where('iscorrect', '=', 1)->count() }} / {{ $set->tasklist->tasks->count() }} tehtävää oikein.
+            Suoritusnro: {{ $set->id }} | <strong> {{ $set->answers->where('iscorrect', '=', 1)->count() }} / {{ $set->tasklist->tasks->count() }} </strong> tehtävää oikein.
 
           </a>
 

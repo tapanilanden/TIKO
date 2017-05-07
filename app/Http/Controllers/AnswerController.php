@@ -31,6 +31,7 @@ class AnswerController extends Controller
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
+
                 
                 $answerQuery = DB::select($answerQuery);
                 
@@ -117,23 +118,45 @@ class AnswerController extends Controller
         if (stripos($answerQuery, 'opiskelijat') !== false) {
 
             $answerQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $answerQuery);
-            $modelQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $modelQuery);
+
             
         }
 
         if (stripos($answerQuery, 'kurssit') !== false) {
 
             $answerQuery = str_replace("kurssit", "kurssit".$answer->set_id, $answerQuery);
-            $modelQuery = str_replace("kurssit", "kurssit".$answer->set_id, $modelQuery);
+
             
         }
 
         if (stripos($answerQuery, 'suoritukset') !== false) {
 
             $answerQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $answerQuery);
+
+            
+        }
+
+        if (stripos($modelQuery, 'opiskelijat') !== false) {
+
+            $modelQuery = str_replace("opiskelijat", "opiskelijat".$answer->set_id, $modelQuery);
+            
+        }
+
+        if (stripos($modelQuery, 'kurssit') !== false) {
+
+            $modelQuery = str_replace("kurssit", "kurssit".$answer->set_id, $modelQuery);
+            
+        }
+
+        if (stripos($modelQuery, 'suoritukset') !== false) {
+
+
             $modelQuery = str_replace("suoritukset", "suoritukset".$answer->set_id, $modelQuery);
             
         }
+
+
+
 
         return ['modelQuery' => $modelQuery, 'answerQuery' => $answerQuery, 'answer' => $answer];
 
