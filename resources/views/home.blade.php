@@ -13,7 +13,7 @@
         @if ($tasklist->tasks->count())
         <h6>
             
-            <strong>{{ $tasklist->user->name }}</strong> |
+            <strong>{{ substr($tasklist->body, 0, 100) }}{{ strlen($tasklist->body) > 100 ? "...": ""}}</strong> |
             @if ($tasklist->tasks->count() == 1)
             
             <strong>{{ $tasklist->tasks->count()}} tehtävä</strong>  
@@ -25,7 +25,7 @@
 
             @endif
             
-            {{ substr($tasklist->body, 0, 100) }}{{ strlen($tasklist->body) > 100 ? "...": ""}}
+            
             
             <form method="post" action="{{ route('sets.store') }}">
             	{{ csrf_field() }}

@@ -10,6 +10,7 @@ use App\Set;
 use App\Task;
 use Session;
 use DB;
+use Carbon\Carbon;
 
 class AnswerController extends Controller
 {
@@ -256,6 +257,8 @@ class AnswerController extends Controller
             return redirect()->route('sets.show', ['set' => $answer->set_id, 'taskNumber' => $taskNumber]);
         else { 
             $set = Set::find($answer->set_id);
+            $set->updated_at = Carbon::now();
+            $set->save();
             $set->destroyData();
             return redirect()->route('home');
         }

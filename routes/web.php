@@ -20,12 +20,10 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::resource('answers', 'AnswerController');
 
-    Route::resource('sets', 'SetController', ['except' => ['store', 'show']]);
+    Route::resource('sets', 'SetController', ['except' => ['store', 'show', 'index']]);
 
     Route::post('sets', 'SetController@store')->name('sets.store');
 
-
-    Route::get('sets/{id}/details', 'SetController@details')->name('sets.details');
             
     Route::get('sets/{id}/{taskNumber}', 'SetController@show')->name('sets.show');
 
@@ -61,6 +59,9 @@ Route::group(['middleware' => ['web']], function () {
             
             Route::post('users/{id}/makeMod', 'UserController@makeMod');
             Route::post('users/{id}/unmakeMod', 'UserController@unmakeMod');
+
+            Route::get('sets', 'SetController@index');
+            Route::get('sets/{id}/details', 'SetController@details')->name('sets.details');
             
 
     });
