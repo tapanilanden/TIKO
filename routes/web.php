@@ -24,9 +24,12 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('sets', 'SetController@store')->name('sets.store');
 
+
     Route::get('sets/{id}/details', 'SetController@details')->name('sets.details');
             
     Route::get('sets/{id}/{taskNumber}', 'SetController@show')->name('sets.show');
+
+
 
     Route::get('sets/{id}', 'SetController@timeout')->name('sets.timeout');
 
