@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use Session;
 
-class CheckIfTeacher
+class CheckUser
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,8 @@ class CheckIfTeacher
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->role < 3) {
+        if ((Auth::user()->role < 3)
+        || (Auth::user()->id == \App\User::find($request->id)->user_id)) {
             return $next($request);
         }
         else {
