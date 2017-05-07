@@ -10,7 +10,7 @@
                 <hr />
                 <p>Vastaukset:</p>
                 @foreach($set->answers as $answer)
-                    <p>{{ $loop->iteration . ". " . substr($answer->body, 0, 100) }}{{ strlen($answer->body) > 100 ? "...": ""}}
+                    <p>{{ $answer->body}}
                     @if ($answer->iscorrect == 1)
 
                     (Oikein)
