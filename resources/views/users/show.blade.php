@@ -103,21 +103,5 @@
 	<form action="{{ route('users.edit', $user->id) }}">
 	    <button type="submit" class="btn btn-primary btn-block">MUOKKAA</button>
 	</form>
-    <form action="{{ route('users.destroy', $user->id) }}" method="POST">
-        {{ csrf_field() }}
-        <input type="hidden" name="_method" value="DELETE">
-	    <button type="submit" class="btn btn-danger btn-block">POISTA</button>
-	</form>
 
 	@stop
-
-<!-- 
-  $table->increments('id');
-            $table->string('ppt')->unique(); // Peruspalvelutunnus
-            $table->string('name');
-            $table->integer('major'); // Pääaine
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->integer('role')->default(3); // Käyttöoikeusluokka, default 3 <- opiskelija
-            $table->rememberToken();
-            $table->timestamps(); -->
