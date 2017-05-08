@@ -94,6 +94,12 @@ class AnswerController extends Controller
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
 
+                if(stripos($task->modelAnswer->body, 'WHERE')) {
+                    if(!stripos($answer->body, 'WHERE')) {
+                        return false;
+                    }
+                }
+
                 DB::beginTransaction();
                 
                 $answerQuery = DB::delete($answerQuery);
