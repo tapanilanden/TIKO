@@ -27,6 +27,7 @@
             ?>
 
             @foreach ($tasklist->sets as $set)
+            @if (!$set->answers->isEmpty())
                 @if ($set->answers->last()->task_id == $set->tasklist->tasks->last()->id)
                 <?php
 
@@ -48,6 +49,7 @@
 
                 ?>
                 @endif
+            @endif
             @endforeach
 
             <?php
