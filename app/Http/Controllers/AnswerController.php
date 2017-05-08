@@ -26,8 +26,23 @@ class AnswerController extends Controller
 
             $answerQuery = $answer->body;
             $modelQuery = $task->model_query;
+            
+            if (stripos($answer, 'model_answers') ||
+                stripos($answer, 'users') ||
+                stripos($answer, 'tasks') ||
+                stripos($answer, 'tasklists') ||
+                stripos($answer, 'migrations') ||
+                stripos($answer, 'password_resets') ||
+                stripos($answer, 'sets') ||
+                stripos($answer, 'task_tasklist')           
+                ) {
+                
+                Session::flash('error', 'Yrität ylittää oikeutesi!');
+                return false;
+                
+            }
 
-            if ($task->type === 1 && stripos($answer, 'SELECT') !== false) {
+            else if ($task->type === 1 && stripos($answer, 'SELECT') !== false) {
                 $helpTable = AnswerController::addIdToTableName($answerQuery, $answer, $modelQuery);
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
