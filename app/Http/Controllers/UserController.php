@@ -91,7 +91,7 @@ class UserController extends Controller
             
             $user->save();
 
-            return redirect()->route('users.index')->with('success', 'Muokkaus onnistui!');
+            return redirect()->back()->with('success', 'Muokkaus onnistui!');
         }
         catch(\Illuminate\Database\QueryException $e) {
             Session::flash('error', $e->errorInfo[2]);

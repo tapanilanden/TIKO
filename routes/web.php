@@ -27,6 +27,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['middleware' => ['auth', 'CheckUser']], function () {
             Route::get('users/{id}', 'UserController@show');
+            Route::get('users/{id}/edit', 'UserController@edit')->name('users.edit');
+            Route::put('users/{id}', 'UserController@update');
     });
 
     Route::group(['middleware' => ['auth', 'CheckTask']], function () {
@@ -42,7 +44,7 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::group(['middleware' => ['auth', 'CheckIfAdmin']], function () {
-            Route::resource('users','UserController', ['except' => ['show', 'destroy']]);
+            Route::resource('users','UserController', ['except' => ['show', 'update', 'edit', 'destroy']]);
             
             Route::post('users/{id}/makeMod', 'UserController@makeMod');
             Route::post('users/{id}/unmakeMod', 'UserController@unmakeMod');
