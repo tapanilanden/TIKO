@@ -20,6 +20,19 @@ class SetController extends Controller
     public function index()
     {
         $sets = Set::all();
+
+        $completedSets = [];
+
+        foreach($sets as $set) {
+            if (!$set->answers->isEmpty()) {
+                if ($set->answers->last()->task_id == $set->tasklist->tasks->last()->id) {
+                    array_push($completedSets, $set);
+                }
+            }
+        }
+
+        $sets = $completedSets;
+
         
         return view('sets.index')->withSets($sets);
     }

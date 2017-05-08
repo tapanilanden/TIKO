@@ -9,7 +9,6 @@
 
             </div>
 
-
             @foreach($sets as $set)
                 
                     @include('sets.sets')

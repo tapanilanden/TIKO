@@ -53,6 +53,7 @@ class AnswerController extends Controller
                 $answer = $helpTable['answer'];
                 
                 DB::beginTransaction();
+
                 $answerQuery = DB::insert($answerQuery);
             
                 $modelQuery = DB::select($modelQuery);
@@ -71,6 +72,8 @@ class AnswerController extends Controller
                 $answerQuery = $helpTable['answerQuery'];
                 $modelQuery = $helpTable['modelQuery'];
                 $answer = $helpTable['answer'];
+
+                DB::beginTransaction();
                 
                 $answerQuery = DB::update($answerQuery);
                 $modelQuery = DB::select($modelQuery);
@@ -110,6 +113,7 @@ class AnswerController extends Controller
         }
         catch(\Illuminate\Database\QueryException $e) {
             Session::flash('error', $e->errorInfo[2]);
+            DB::rollback();
             return false;
         }
      }

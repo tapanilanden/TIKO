@@ -21,7 +21,7 @@
 
             <?php
             $slowest = 0;
-            $fastest = 900000000;
+            $fastest = 0;
             $sum = 0;
             $index = 0;
             ?>
@@ -33,15 +33,18 @@
                 $timeDifference = $set->updated_at->diffInSeconds($set->created_at);
 
                 $sum += $timeDifference;
-                $index++;
 
                 if ($timeDifference > $slowest){
                     $slowest = $timeDifference;
                 }
 
-                if ($timeDifference < $fastest){
+                if ($index == 0) {
+                    $fastest = $timeDifference;
+                } else if ($timeDifference < $fastest){
                     $fastest = $timeDifference;
                 }
+
+                $index++;
 
                 ?>
                 @endif
@@ -50,7 +53,10 @@
             <?php
                 $slowest = gmdate('H:i:s', $slowest);
                 $fastest = gmdate('H:i:s', $fastest);
-                $average = $sum / $index;
+                $average = 0;
+                if ($index != 0) {
+                    $average = $sum / $index;
+                }
                 $average = gmdate('H:i:s', $average);
             ?>
 
